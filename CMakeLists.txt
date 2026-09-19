@@ -3,7 +3,7 @@ project(c_language_basics VERSION 0.1.0 LANGUAGES C)
 
 add_library(common_warnings INTERFACE)
 target_compile_options(common_warnings INTERFACE
-    -Wall -Wextra -Wpedantic
+    -Wall -Wextra -pedantic
 )
 
 add_subdirectory(hw_1 hw_1)
