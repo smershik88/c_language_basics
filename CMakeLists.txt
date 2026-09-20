@@ -8,3 +8,4 @@ target_compile_options(common_warnings INTERFACE
 
 add_subdirectory(hw_1 hw_1)
 add_subdirectory(hw_2/Task4 hw_2)
+add_subdirectory(hw_3 hw_3)
