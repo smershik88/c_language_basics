@@ -3,8 +3,8 @@
 
 int main(int argc, char* argv[])
 {
-    int number = 0;
-    unsigned int digits_sum = 0;
+    int number = 0,
+        digits_sum = 0;
 
     // printf("Input integer number: ");
     scanf("%d", &number);

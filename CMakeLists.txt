@@ -4,6 +4,15 @@ project(c_language_basics VERSION 0.1.0 LANGUAGES C)
 add_library(common_warnings INTERFACE)
 target_compile_options(common_warnings INTERFACE
     -Wall -Wextra -pedantic
+    -Wshadow
+    -Wconversion -Wsign-conversion
+    -Wstrict-prototypes -Wmissing-prototypes
+    -Wold-style-definition
+    -Wformat=2
+    -Wundef
+    -Wpointer-arith
+    -Wcast-qual
+    -Wwrite-strings
 )
 
 add_subdirectory(hw_1 hw_1)

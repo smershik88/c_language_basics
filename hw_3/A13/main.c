@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
     int number = 0;
-    unsigned int digits_prod = 1;
+    int digits_prod = 1;
 
     // printf("Input integer number: ");
     scanf("%d", &number);

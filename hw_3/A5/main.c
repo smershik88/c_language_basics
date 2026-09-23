@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
     int a = 0,
         b = 0,
         c = 0;
-    float avg = 0.0;
+    double avg = 0.0;
 
     // printf("Input three integer numbers: ");
     scanf("%d %d %d", &a, &b, &c);
