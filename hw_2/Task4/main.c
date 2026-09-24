@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+Вывести таблицы истинности для:
+A -> B = !A || B 
+A <-> B = (A && B) || (!A && !B)
+*/
+
 int main(int argc, char* argv[])
 {
     puts("A -> B = !A || B");
