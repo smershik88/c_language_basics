@@ -18,9 +18,19 @@
 100
 */
 
+uint32_t abs_32(int32_t n);
+
 int main(int argc, char* argv[])
 {
+    int32_t n = 0;
 
+    scanf("%" SCNd32, &n);
+    printf("%" PRIu32 "\n", abs_32(n));
     
     return EXIT_SUCCESS;
+}
+
+uint32_t abs_32(int32_t n)
+{
+    return n < 0 ? (uint32_t)-n : (uint32_t)n;
 }
