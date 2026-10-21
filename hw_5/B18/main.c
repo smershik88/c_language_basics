@@ -25,6 +25,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0;
     uint32_t fib_prev = 1,
              fib_2nd_to_prev = 1;

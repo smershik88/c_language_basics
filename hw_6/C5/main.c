@@ -21,6 +21,9 @@ uint64_t sum_uint32(uint32_t x);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0;
 
     scanf("%" SCNu32, &n);

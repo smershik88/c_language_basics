@@ -12,6 +12,9 @@ Let;s go
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     printf("Let's\n");
     printf("  go\n");
     printf("    to walk\n");

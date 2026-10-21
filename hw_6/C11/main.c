@@ -21,6 +21,9 @@ uint32_t nod(uint32_t a, uint32_t b);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t    a = 0,
                 b = 0;
 

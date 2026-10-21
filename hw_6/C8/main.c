@@ -25,6 +25,9 @@ char toUpperCase(char a);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     for (char a = (char)getchar(); a != '.'; a = (char)getchar())
     {
         putchar(toUpperCase(a));

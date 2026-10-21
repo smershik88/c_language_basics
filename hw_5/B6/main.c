@@ -24,6 +24,9 @@ YES
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0;
     
     // printf("Input an integer >= 0: ");

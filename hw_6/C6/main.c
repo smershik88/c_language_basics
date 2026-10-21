@@ -27,6 +27,9 @@ long double geometry_progression_n(double b1, uint32_t n, double q);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint8_t n = 0;
 
     scanf("%" SCNu8, &n);

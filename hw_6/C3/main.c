@@ -26,6 +26,9 @@ int32_t middle(int32_t a, int32_t b);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t a = 0,
             b = 0;
 

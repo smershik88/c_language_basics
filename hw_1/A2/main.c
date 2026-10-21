@@ -15,6 +15,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     printf("   *\n");
     printf("  ***\n");
     printf(" *****\n");

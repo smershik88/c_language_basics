@@ -27,6 +27,9 @@ uint8_t digit_to_num(char c);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     char ch = 0;
     uint32_t digits_sum = 0;
 

@@ -30,6 +30,9 @@ int32_t calc_func(int32_t x);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0,
             max = INT32_MIN;
 

@@ -24,6 +24,9 @@ NO
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     char ch = 0;
     int32_t balance = 0;
 

@@ -22,6 +22,9 @@ uint32_t abs_32(int32_t n);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0;
 
     scanf("%" SCNd32, &n);

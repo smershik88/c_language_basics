@@ -25,6 +25,9 @@ y=k*x+b
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t x1 = 0,
         y1 = 0,
         x2 = 0,

@@ -24,6 +24,9 @@ static uint8_t max(const uint8_t *const array, size_t array_size);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int64_t number = 0;
 
     // printf("Input integer number: ");

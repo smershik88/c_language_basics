@@ -28,6 +28,9 @@ small letters
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     char letter = 0;
 
     // printf("Input a text with '.' at the end: ");

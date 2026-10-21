@@ -24,6 +24,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0;
     uint32_t reversed_n = 0;
     

@@ -23,6 +23,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0;
     uint8_t digits_sum = 0;
 

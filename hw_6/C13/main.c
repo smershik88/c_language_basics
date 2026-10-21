@@ -26,6 +26,9 @@ double cos_taylor(double rad, double err);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     double alpha = 0;
 
     scanf("%lf", &alpha);

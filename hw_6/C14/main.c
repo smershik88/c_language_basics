@@ -26,6 +26,9 @@ bool is_digits_sum_even(uint32_t n);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0 ;
 
     scanf("%" SCNu32, &n);

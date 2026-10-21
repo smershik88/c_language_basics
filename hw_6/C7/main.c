@@ -29,6 +29,9 @@ uint64_t convert_n_to_base_p(uint32_t n, uint8_t p);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0;
     uint8_t p = 0;
 

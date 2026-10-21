@@ -24,6 +24,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint32_t n = 0;
     uint8_t odd_counter = 0,
             even_counter = 0;

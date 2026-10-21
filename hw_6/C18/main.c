@@ -26,6 +26,9 @@ bool is_digit(char n);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     char ch = 0;
     uint32_t char_counter = 0;
 

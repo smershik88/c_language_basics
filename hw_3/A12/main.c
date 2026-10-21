@@ -22,6 +22,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int number = 0,
         digits_sum = 0;
 

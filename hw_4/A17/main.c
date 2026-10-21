@@ -40,6 +40,9 @@ typedef enum
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int8_t mounth_number = 0;
 
     // printf("Input mounth number as integer: ");

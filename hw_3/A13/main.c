@@ -22,6 +22,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int number = 0;
     int digits_prod = 1;
 

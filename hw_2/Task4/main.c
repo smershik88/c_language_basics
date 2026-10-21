@@ -9,6 +9,9 @@ A <-> B = (A && B) || (!A && !B)
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     puts("A -> B = !A || B");
     puts("A\tB\t!A\t!A || B");
 

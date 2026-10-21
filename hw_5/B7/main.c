@@ -38,6 +38,9 @@ typedef enum
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0;
     uint16_t digit_flags = 0x0000;
     

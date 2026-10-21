@@ -24,6 +24,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int a = 0,
         b = 0,
         c = 0,

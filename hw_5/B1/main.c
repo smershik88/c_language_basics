@@ -28,6 +28,9 @@
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     uint8_t n = 0;
 
     // printf("Input the number n as a natural number less than 100: ");

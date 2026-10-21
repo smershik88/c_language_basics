@@ -27,6 +27,9 @@ int32_t power(int32_t n, int8_t p);
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+    
     int32_t n = 0;
     int8_t p = 0;
 
