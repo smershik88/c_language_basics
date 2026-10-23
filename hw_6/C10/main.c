@@ -22,7 +22,7 @@
 2 2 2 3 5
 */
 
-void print_simple(uint32_t n);
+void print_prime_factors(uint32_t n);
 
 int main(int argc, char* argv[])
 {
@@ -33,12 +33,12 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
 
-    print_simple(n);
+    print_prime_factors(n);
 
     return EXIT_SUCCESS;
 }
 
-void print_simple(uint32_t n)
+void print_prime_factors(uint32_t n)
 {
     uint32_t lim = (uint32_t)sqrt(n);
 
