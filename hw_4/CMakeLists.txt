@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 3.10.0)
-project(hw_4 VERSION 0.1.0 LANGUAGES C)
-
 add_subdirectory(A6)
 add_subdirectory(A7)
 add_subdirectory(A8)
