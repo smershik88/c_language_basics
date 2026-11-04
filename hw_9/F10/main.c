@@ -1,7 +1,5 @@
-#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /*
 Упаковать строку
@@ -35,8 +33,8 @@ int main(int argc, char* argv[])
 
     char buffer[2001] = {0};
 
-    compress_input(buffer, sizeof buffer);
-    printf("%s", buffer);
+    if(compress_input(buffer, sizeof buffer))
+        printf("%s", buffer);
 
     return EXIT_SUCCESS;
 }
@@ -51,6 +49,7 @@ size_t compress_input(char *buffer, size_t size)
     int c = getchar();
     int prev_c = c;
     size_t len = 1;
+    size_t bytes_available = size;
 
     while (c != '.' && c != EOF)
     {
@@ -61,13 +60,14 @@ size_t compress_input(char *buffer, size_t size)
         }
         else
         {
-            int j = sprintf(buffer, "%c%zu", prev_c, len);
+            int j = snprintf(buffer, bytes_available, "%c%zu", prev_c, len);
 
-            if (j < 0)
+            if (j < 0 || (size_t)j >= bytes_available)
                 return 0;
 
             result_len += (size_t)j;
             buffer += j;
+            bytes_available -= (size_t)j;
 
             prev_c = c;
             len = 1;
