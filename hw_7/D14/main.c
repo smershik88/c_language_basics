@@ -17,7 +17,7 @@
 13 173 19
 */
 
-void print_odd_input();
+void print_odd_input(void);
 
 int main(int argc, char* argv[])
 {
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void print_odd_input()
+void print_odd_input(void)
 {
     int32_t n = 0;
 

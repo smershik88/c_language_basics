@@ -18,7 +18,7 @@ Output
 !dlrow olleH
 */
 
-void print_reversed_input();
+void print_reversed_input(void);
 
 int main(int argc, char* argv[])
 {
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void print_reversed_input()
+void print_reversed_input(void)
 {
     char c = (char)getchar();
     if (c == '.')
