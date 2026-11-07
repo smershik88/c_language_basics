@@ -21,6 +21,10 @@ float sinus(float x)
 0.707
 */
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 double deg_to_rad(double deg);
 double sin_taylor(double rad, double err);
 
