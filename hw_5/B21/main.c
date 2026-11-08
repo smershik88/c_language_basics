@@ -38,11 +38,20 @@ int main(int argc, char *argv[])
 
     do
     {
-        scanf("%c", &letter);
+        if (scanf("%c", &letter) != 1)
+        {
+            return EXIT_FAILURE;
+        }
+
         if (letter >= 'A' && letter <= 'Z')
+        {
             letter += ('a' - 'A');
+        }
+
         if (letter != '.')
+        {
             printf("%c", letter);
+        }
     } while (letter != '.');
 
     return EXIT_SUCCESS;

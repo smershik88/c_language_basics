@@ -20,6 +20,8 @@
 1
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -28,14 +30,17 @@ int main(int argc, char *argv[])
     int number = 0, digits_sum = 0;
 
     // printf("Input integer number: ");
-    scanf("%d", &number);
+    if (scanf("%d", &number) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     number = abs(number);
 
     while (number)
     {
-        digits_sum += number % 10;
-        number = number / 10;
+        digits_sum += number % DEC_BASE;
+        number = number / DEC_BASE;
     }
 
     printf("%d\n", digits_sum);

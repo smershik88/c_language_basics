@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,6 +17,8 @@
 5
 */
 
+#define DEC_BASE 10
+
 static size_t  get_number_of_digits(int64_t n);
 static void    get_digits(int64_t n, uint8_t *const digits_array, size_t digits_array_size);
 static uint8_t max(const uint8_t *const array, size_t array_size);
@@ -30,39 +31,45 @@ int main(int argc, char *argv[])
     int64_t number = 0;
 
     // printf("Input integer number: ");
-    scanf("%" SCNd64, &number);
+    if (scanf("%" SCNd64, &number) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     const size_t number_of_digits = get_number_of_digits(number);
     uint8_t      digits_array[number_of_digits];
 
     get_digits(number, digits_array, number_of_digits);
 
-    printf("%" PRId8, max(digits_array, number_of_digits));
+    printf("%" PRIu8, max(digits_array, number_of_digits));
 
     return EXIT_SUCCESS;
 }
 
-static size_t get_number_of_digits(const int64_t n)
+static size_t get_number_of_digits(int64_t n)
 {
-    size_t result = 1;
+    size_t result = 0;
 
-    if (n == 0)
-        return result;
+    do
+    {
+        result++;
+        n /= DEC_BASE;
+    } while (n != 0);
 
-    int64_t n_abs = llabs(n);
-    result        = (size_t)log10l(n_abs) + 1;
     return result;
 }
 
 static void get_digits(int64_t n, uint8_t *const digits_array, size_t digits_array_size)
 {
     if (digits_array == NULL || digits_array_size == 0)
+    {
         return;
+    }
 
     for (size_t i = 0; i < digits_array_size; i++)
     {
-        digits_array[i] = (uint8_t)(n % 10);
-        n /= 10;
+        digits_array[i] = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
     }
 }
 
@@ -71,7 +78,9 @@ static uint8_t max(const uint8_t *const array, size_t array_size)
     uint8_t result = 0;
 
     if (array == NULL || array_size == 0)
+    {
         return result;
+    }
 
     for (size_t i = 0; i < array_size; i++)
     {

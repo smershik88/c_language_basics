@@ -22,6 +22,8 @@
 1 2
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -31,17 +33,24 @@ int main(int argc, char *argv[])
     uint8_t  odd_counter = 0, even_counter = 0;
 
     // printf("Input an integer >= 0: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
 
         if (digit & 1U)
+        {
             ++odd_counter;
+        }
         else
+        {
             ++even_counter;
+        }
     }
 
     printf("%" PRIu8 " %" PRIu8 "\n", even_counter, odd_counter);

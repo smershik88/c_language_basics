@@ -21,28 +21,36 @@ YES
 NO
 */
 
+#define DEC_BASE       10
+#define REQUIRED_DIGIT 9
+
 int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    int32_t n            = 0;
-    uint8_t nine_counter = 0;
+    int32_t n       = 0;
+    uint8_t counter = 0;
 
     // printf("Input an integer: ");
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     n = abs(n);
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n             = n / 10;
-        if (digit == 9)
-            nine_counter++;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n             = n / DEC_BASE;
+        if (digit == REQUIRED_DIGIT)
+        {
+            counter++;
+        }
     }
 
-    puts(nine_counter == 1 ? "YES" : "NO");
+    puts(counter == 1 ? "YES" : "NO");
 
     return EXIT_SUCCESS;
 }

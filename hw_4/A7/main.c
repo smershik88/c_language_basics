@@ -28,7 +28,10 @@ int main(int argc, char *argv[])
     int32_t a = 0, b = 0;
 
     // printf("Input two integer numbers: ");
-    scanf("%" SCNd32 " %" SCNd32, &a, &b);
+    if (scanf("%" SCNd32 " %" SCNd32, &a, &b) != 2)
+    {
+        return EXIT_FAILURE;
+    }
 
     bool a_le_b = a <= b;
 

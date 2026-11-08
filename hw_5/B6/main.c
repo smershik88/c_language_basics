@@ -23,6 +23,8 @@ NO
 YES
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -31,23 +33,26 @@ int main(int argc, char *argv[])
     int32_t n = 0;
 
     // printf("Input an integer >= 0: ");
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     n = abs(n);
 
     bool    double_digit_flag = false;
-    uint8_t prev_digit        = (uint8_t)(n % 10);
-    n /= 10;
+    uint8_t prev_digit        = (uint8_t)(n % DEC_BASE);
+    n /= DEC_BASE;
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
         if (digit == prev_digit)
         {
             double_digit_flag = true;
             break;
         }
-        n          = n / 10;
+        n          = n / DEC_BASE;
         prev_digit = digit;
     }
 

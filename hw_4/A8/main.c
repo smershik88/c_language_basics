@@ -20,7 +20,7 @@
 15
 */
 
-#define MAX_3(a, b, c) (a >= b ? (a >= c ? a : c) : (b >= c ? b : c))
+#define MAX_3(a, b, c) ((a) >= (b) ? ((a) >= (c) ? (a) : (c)) : ((b) >= (c) ? (b) : (c)))
 
 int main(int argc, char *argv[])
 {
@@ -30,7 +30,10 @@ int main(int argc, char *argv[])
     int32_t a = 0, b = 0, c = 0;
 
     // printf("Input three integer numbers: ");
-    scanf("%" SCNd32 " %" SCNd32 " %" SCNd32, &a, &b, &c);
+    if (scanf("%" SCNd32 " %" SCNd32 " %" SCNd32, &a, &b, &c) != 3)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRId32 "\n", MAX_3(a, b, c));
 

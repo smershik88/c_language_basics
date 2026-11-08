@@ -42,7 +42,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     array_element_t min = min_element_array(array, SIZE);
     array_element_t max = max_element_array(array, SIZE);
@@ -55,12 +57,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -72,7 +78,9 @@ array_element_t min_element_array(const int32_t *array, size_t size)
     int32_t min   = INT32_MAX;
 
     if (!array || !size)
+    {
         return (array_element_t){index, min};
+    }
 
     for (size_t i = 0; i < size; i++)
     {
@@ -92,7 +100,9 @@ array_element_t max_element_array(const int32_t *array, size_t size)
     int32_t max   = INT32_MIN;
 
     if (!array || !size)
+    {
         return (array_element_t){index, max};
+    }
 
     for (size_t i = 0; i < size; i++)
     {
