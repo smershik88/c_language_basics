@@ -5,7 +5,8 @@
 
 /*
 Сумма цифр в тексте
-Составить функцию, которая преобразует текущий символ цифры в число. Написать программу считающую сумму цифр в тексте. int digit_to_num(char c)
+Составить функцию, которая преобразует текущий символ цифры в число. Написать программу считающую
+сумму цифр в тексте. int digit_to_num(char c)
 
 Формат входных данных
 Строка состоящая из английских букв, пробелов, знаков препинания. В конце строки символ точка.
@@ -22,15 +23,15 @@ abc 1def2 3.
 6
 */
 
-bool is_digit(char n);
+bool    is_digit(char n);
 uint8_t digit_to_num(char c);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    char ch = 0;
+
+    char     ch         = 0;
     uint32_t digits_sum = 0;
 
     do
@@ -39,18 +40,12 @@ int main(int argc, char* argv[])
         if (is_digit(ch))
             digits_sum += digit_to_num(ch);
     } while (ch != '.');
-    
+
     printf("%" PRIu32, digits_sum);
 
     return EXIT_SUCCESS;
 }
 
-bool is_digit(char n)
-{    
-    return n >= '0' && n <= '9';
-}
+bool is_digit(char n) { return n >= '0' && n <= '9'; }
 
-uint8_t digit_to_num(char c)
-{
-    return (uint8_t)(c - '0');
-}
+uint8_t digit_to_num(char c) { return (uint8_t)(c - '0'); }

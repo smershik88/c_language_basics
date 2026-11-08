@@ -5,7 +5,8 @@
 
 /*
 Возвести в степень
-Составить функцию, возведение числа N в степень P. int power(n, p) и привести пример ее использования.
+Составить функцию, возведение числа N в степень P. int power(n, p) и привести пример ее
+использования.
 
 Формат входных данных
 Два целых числа: N по модулю не превосходящих 1000 и P ≥ 0
@@ -23,30 +24,27 @@
 */
 
 uint32_t abs_32(int32_t n);
-int32_t power(int32_t n, int8_t p);
+int32_t  power(int32_t n, int8_t p);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     int32_t n = 0;
-    int8_t p = 0;
+    int8_t  p = 0;
 
     scanf("%" SCNd32 " %" SCNd8, &n, &p);
-    
+
     if (abs_32(n) > 100 || p < 0)
         return EXIT_FAILURE;
 
     printf("%" PRId32 "\n", power(n, p));
-    
+
     return EXIT_SUCCESS;
 }
 
-uint32_t abs_32(int32_t n)
-{
-    return n < 0 ? (uint32_t)-n : (uint32_t)n;
-}
+uint32_t abs_32(int32_t n) { return n < 0 ? (uint32_t)-n : (uint32_t)n; }
 
 int32_t power(int32_t n, int8_t p)
 {
@@ -54,8 +52,8 @@ int32_t power(int32_t n, int8_t p)
 
     if (p == 0)
         return result;
-        
-    while(p--)
+
+    while (p--)
     {
         result *= n;
     }

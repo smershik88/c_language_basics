@@ -22,19 +22,19 @@ YES
 NO
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t n = 0;
-    bool result = true;
-    
+
+    int32_t n      = 0;
+    bool    result = true;
+
     // printf("Input an integer: ");
     scanf("%" SCNd32, &n);
-    
+
     n = abs(n);
-    
+
     uint8_t prev_digit = (uint8_t)(n % 10);
     n /= 10;
 

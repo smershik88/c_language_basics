@@ -5,7 +5,8 @@
 
 /*
 Количество цифр в тексте
-Составить логическую функцию, которая определяет, что текущий символ это цифра. Написать программу считающую количество цифр в тексте. int is_digit(char c)
+Составить логическую функцию, которая определяет, что текущий символ это цифра. Написать программу
+считающую количество цифр в тексте. int is_digit(char c)
 
 Формат входных данных
 Текст из английских букв и знаков препинания. В конце текста символ точка.
@@ -24,12 +25,12 @@ abcd.
 
 bool is_digit(char n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    char ch = 0;
+
+    char     ch           = 0;
     uint32_t char_counter = 0;
 
     do
@@ -38,13 +39,10 @@ int main(int argc, char* argv[])
         if (is_digit(ch))
             char_counter++;
     } while (ch != '.');
-    
+
     printf("%" PRIu32, char_counter);
 
     return EXIT_SUCCESS;
 }
 
-bool is_digit(char n)
-{    
-    return n >= '0' && n <= '9';
-}
+bool is_digit(char n) { return n >= '0' && n <= '9'; }

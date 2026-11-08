@@ -18,14 +18,12 @@
 YES
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t a = 0,
-            b = 0,
-            c = 0;
+
+    int32_t a = 0, b = 0, c = 0;
 
     // printf("Input three integer numbers: ");
     scanf("%" SCNd32 " %" SCNd32 " %" SCNd32, &a, &b, &c);

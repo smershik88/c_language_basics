@@ -22,15 +22,12 @@
 10+20+30=60
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int a = 0,
-        b = 0,
-        c = 0,
-        s = 0;
+
+    int a = 0, b = 0, c = 0, s = 0;
 
     // printf("Input three integer numbers: ");
     scanf("%d %d %d", &a, &b, &c);

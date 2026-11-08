@@ -24,7 +24,7 @@ Output
 
 uint32_t sum_digits(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     printf("%" PRIu32, sum_digits(n));
-    
+
     return EXIT_SUCCESS;
 }
 

@@ -4,8 +4,8 @@
 
 /*
 В прямом порядке
-Дано натуральное число N. Выведите все его цифры по одной, в прямом порядке, разделяя их пробелами или новыми строками. Необходимо реализовать рекурсивную функцию.
-void print_num(int num)
+Дано натуральное число N. Выведите все его цифры по одной, в прямом порядке, разделяя их пробелами
+или новыми строками. Необходимо реализовать рекурсивную функцию. void print_num(int num)
 
 Input format
 Одно целое неотрицательное число
@@ -24,7 +24,7 @@ Output
 
 void print_digits(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     print_digits(n);
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -44,7 +44,7 @@ void print_digits(uint32_t n)
         printf("%" PRIu32 " ", n);
         return;
     }
-    
+
     print_digits(n / 10);
     printf("%" PRIu32 " ", n % 10);
 }

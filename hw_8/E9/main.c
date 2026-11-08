@@ -29,7 +29,7 @@ void print_array(const int32_t *array, size_t n);
 void swap(int32_t *a, int32_t *b);
 void ror1_array(int32_t *array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -41,11 +41,11 @@ int main(int argc, char* argv[])
 
     ror1_array(array, SIZE);
     print_array(array, SIZE);
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -55,14 +55,14 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
-    return;
+        return;
 
     for (size_t i = 0; i < n; i++)
         printf("%" PRId32 " ", array[i]);
@@ -74,14 +74,14 @@ void swap(int32_t *a, int32_t *b)
         return;
 
     int32_t tmp = *a;
-    *a = *b;
-    *b = tmp;
+    *a          = *b;
+    *b          = tmp;
 }
 
 void ror1_array(int32_t *array, size_t size)
 {
     if (!array || !size)
-    return;
+        return;
 
     int32_t last = array[size - 1];
 

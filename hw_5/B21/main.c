@@ -5,7 +5,8 @@
 
 /*
 Заглавные буквы в строчные
-Дан текст состоящий из английских букв и цифр, заканчивается символом «.» Перевести все заглавные английские буквы в строчные.
+Дан текст состоящий из английских букв и цифр, заканчивается символом «.» Перевести все заглавные
+английские буквы в строчные.
 
 Формат входных данных
 Текст из маленьких, больших английских букв и пробелов. В конце текста символ точка.
@@ -26,15 +27,15 @@ small letters.
 small letters
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     char letter = 0;
 
     // printf("Input a text with '.' at the end: ");
-    
+
     do
     {
         scanf("%c", &letter);
@@ -43,6 +44,6 @@ int main(int argc, char* argv[])
         if (letter != '.')
             printf("%c", letter);
     } while (letter != '.');
-    
+
     return EXIT_SUCCESS;
 }

@@ -6,7 +6,8 @@
 
 /*
 Проверка на простоту
-Составить функцию логическую функцию, которая определяет, верно ли, что число простое. Используя функцию решить задачу. int is_prime(int n)
+Составить функцию логическую функцию, которая определяет, верно ли, что число простое. Используя
+функцию решить задачу. int is_prime(int n)
 
 Формат входных данных
 Одно целое не отрицательное число.
@@ -23,14 +24,14 @@ YES
 NO
 */
 
-bool is_prime (uint32_t n);
+bool is_prime(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    uint32_t n = 0 ;
+
+    uint32_t n = 0;
 
     scanf("%" SCNu32, &n);
     printf("%s", is_prime(n) ? "YES" : "NO");
@@ -46,7 +47,7 @@ bool is_prime(uint32_t n)
     {
         if (n % i)
             continue;
-        
+
         prime_flag = false;
         break;
     }

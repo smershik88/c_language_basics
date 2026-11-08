@@ -22,14 +22,12 @@
 2.00
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int a = 0,
-        b = 0,
-        c = 0;
+
+    int    a = 0, b = 0, c = 0;
     double avg = 0.0;
 
     // printf("Input three integer numbers: ");

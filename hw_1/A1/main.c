@@ -10,11 +10,11 @@ Let;s go
       to walk
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     printf("Let's\n");
     printf("  go\n");
     printf("    to walk\n");

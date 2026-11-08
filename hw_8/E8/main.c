@@ -28,7 +28,7 @@ bool read_array(int32_t *array, size_t n);
 void reverse_array(int32_t *array, size_t size);
 void inverse_thirds_and_print_array(int32_t *array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -39,11 +39,11 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
 
     inverse_thirds_and_print_array(array, SIZE);
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -53,7 +53,7 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
@@ -65,8 +65,8 @@ void reverse_array(int32_t *array, size_t size)
     for (int32_t *left = array, *right = array + size - 1; left < right;)
     {
         const int32_t tmp = *left;
-        *left++ = *right;
-        *right-- = tmp;
+        *left++           = *right;
+        *right--          = tmp;
     }
 }
 
@@ -75,7 +75,7 @@ void inverse_thirds_and_print_array(int32_t *array, size_t size)
     if (!array || size % 3 != 0)
         return;
 
-    const size_t third_size = size / 3;
+    const size_t third_size   = size / 3;
     const size_t thirds_count = size / third_size;
 
     for (size_t i = 0; i < thirds_count; i++)
@@ -83,7 +83,7 @@ void inverse_thirds_and_print_array(int32_t *array, size_t size)
         int32_t *start_ptr = array + third_size * i;
         reverse_array(start_ptr, third_size);
     }
-    
+
     for (size_t i = 0; i < size; i++)
         printf("%" PRId32 " ", array[i]);
 }

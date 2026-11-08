@@ -5,8 +5,8 @@
 
 /*
 Точная степень двойки
-Написать логическую рекурсивную функцию и используя ее определить является ли введенное натуральное число точной степенью двойки.
-int is2pow(int n)
+Написать логическую рекурсивную функцию и используя ее определить является ли введенное натуральное
+число точной степенью двойки. int is2pow(int n)
 
 Формат входных данных
 Одно натуральное число.
@@ -25,7 +25,7 @@ NO
 
 bool is2pow(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     scanf("%" SCNu32, &n);
 
     puts(is2pow(n) ? "YES" : "NO");
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -43,7 +43,7 @@ bool is2pow(uint32_t n)
 {
     if (n == 0)
         return false;
-        
+
     if (n == 1)
         return true;
 

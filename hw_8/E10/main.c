@@ -22,7 +22,7 @@ Output
 9 10 11 12 1 2 3 4 5 6 7 8
 */
 
-#define SIZE 12U
+#define SIZE  12U
 #define ROR_N 4U
 
 bool read_array(int32_t *array, size_t n);
@@ -30,7 +30,7 @@ void print_array(const int32_t *array, size_t n);
 void reverse_array(int32_t *array, size_t size);
 void ror_array(int32_t *array, size_t size, size_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -42,11 +42,11 @@ int main(int argc, char* argv[])
 
     ror_array(array, SIZE, ROR_N);
     print_array(array, SIZE);
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -56,14 +56,14 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
-    return;
+        return;
 
     for (size_t i = 0; i < n; i++)
         printf("%" PRId32 " ", array[i]);
@@ -77,15 +77,15 @@ void reverse_array(int32_t *array, size_t size)
     for (int32_t *left = array, *right = array + size - 1; left < right;)
     {
         const int32_t tmp = *left;
-        *left++ = *right;
-        *right-- = tmp;
+        *left++           = *right;
+        *right--          = tmp;
     }
 }
 
 void ror_array(int32_t *array, size_t size, size_t n)
 {
     if (!array || !size)
-    return;
+        return;
 
     n %= size;
     if (n == 0)

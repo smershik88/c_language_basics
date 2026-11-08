@@ -5,41 +5,29 @@
 
 /*
 Цифры по возрастанию
-Написать функцию и программу демонстрирующую работу данной функции. Вывести в порядке возрастания цифры, входящие в десятичную запись натурального числа N, не более 1000 цифр. Цифра пробел сколько раз данная цифра встречается в числе.
+Написать функцию и программу демонстрирующую работу данной функции. Вывести в порядке возрастания
+цифры, входящие в десятичную запись натурального числа N, не более 1000 цифр. Цифра пробел сколько
+раз данная цифра встречается в числе.
 
 Input format
 Натуральное число не более 1000 цифр
 Output format
-Цифры входящие в число через пробел в порядке возрастания. От самой младшей цифры до самой старшей и количество.
-Examples
-Input
-54321
-Output
-1 1
-2 1
-3 1
-4 1
-5 1
-Input
-22443344
-Output
-2 2
-3 2
-4 4
+Цифры входящие в число через пробел в порядке возрастания. От самой младшей цифры до самой старшей и
+количество. Examples Input 54321 Output 1 1 2 1 3 1 4 1 5 1 Input 22443344 Output 2 2 3 2 4 4
 */
 
-#define MAX_LENGTH 1001U
+#define MAX_LENGTH        1001U
 #define DEC_DIGITS_NUMBER 10U
 
 void get_number_of_dec_digits(const char *str, uint32_t digits_count[]);
 void print_number_of_dec_digits(const uint32_t digits_count[]);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    char str[MAX_LENGTH] = {0};
+    char     str[MAX_LENGTH]                 = {0};
     uint32_t digits_count[DEC_DIGITS_NUMBER] = {0};
 
     if (!fgets(str, MAX_LENGTH, stdin))
@@ -55,7 +43,7 @@ void get_number_of_dec_digits(const char *str, uint32_t digits_count[])
 {
     if (!str || !digits_count)
         return;
-    
+
     for (; *str; str++)
     {
         if (isdigit((unsigned char)*str))

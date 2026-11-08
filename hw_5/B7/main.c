@@ -5,7 +5,8 @@
 
 /*
 Две одинаковые цифры
-Ввести целое число и определить, верно ли, что в его записи есть  две одинаковые цифры, НЕ обязательно стоящие рядом.
+Ввести целое число и определить, верно ли, что в его записи есть  две одинаковые цифры, НЕ
+обязательно стоящие рядом.
 
 Формат входных данных
 Одно целое число
@@ -24,31 +25,31 @@ YES
 
 typedef enum
 {
-    ZERO = 0x0001,
-    ONE = 0x0002,
-    TWO = 0x0004,
+    ZERO  = 0x0001,
+    ONE   = 0x0002,
+    TWO   = 0x0004,
     THREE = 0x0008,
-    FOUR = 0x0010,
-    FIVE = 0x0020,
-    SIX = 0x0040,
+    FOUR  = 0x0010,
+    FIVE  = 0x0020,
+    SIX   = 0x0040,
     SEVEN = 0x0080,
     EIGHT = 0x0100,
-    NINE = 0x0200
+    NINE  = 0x0200
 } digits_t;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t n = 0;
+
+    int32_t  n           = 0;
     uint16_t digit_flags = 0x0000;
-    
+
     // printf("Input an integer: ");
     scanf("%" SCNd32, &n);
-    
+
     n = abs(n);
-    
+
     bool double_digit_flag = false;
 
     while (n)

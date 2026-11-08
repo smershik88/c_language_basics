@@ -22,21 +22,21 @@ Output
 91
 */
 
-size_t get_digits_array(uint32_t n, uint8_t **dest_array);
-int cmp_uint8_by_desc(const void *pa, const void *pb);
-uint64_t get_max_number(const uint8_t* digits_array, size_t size);
+size_t   get_digits_array(uint32_t n, uint8_t **dest_array);
+int      cmp_uint8_by_desc(const void *pa, const void *pb);
+uint64_t get_max_number(const uint8_t *digits_array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    uint32_t n = 0;
+
+    uint32_t n            = 0;
     uint8_t *digits_array = NULL;
 
     if (scanf("%" SCNu32, &n) != 1)
         return EXIT_FAILURE;
-    
+
     size_t count = get_digits_array(n, &digits_array);
     printf("%" PRIu64, get_max_number(digits_array, count));
 
@@ -59,8 +59,8 @@ size_t get_digits_array(uint32_t n, uint8_t **dest_array)
     *dest_array = malloc(digits_count * sizeof(uint8_t));
     if (*dest_array == NULL)
         return 0;
-    
-    for(size_t i = 0; n != 0;)
+
+    for (size_t i = 0; n != 0;)
     {
         const uint8_t digit = (uint8_t)(n % 10);
         n /= 10;
@@ -71,9 +71,8 @@ size_t get_digits_array(uint32_t n, uint8_t **dest_array)
 }
 
 int cmp_uint8_by_desc(const void *pa, const void *pb)
-{   
-    uint8_t a = *(const uint8_t*)pa,
-            b = *(const uint8_t*)pb;
+{
+    uint8_t a = *(const uint8_t *)pa, b = *(const uint8_t *)pb;
 
     return (b > a) - (b < a);
 }
@@ -88,9 +87,7 @@ uint64_t get_max_number(const uint8_t *digits_array, size_t size)
         return 0;
 
     memcpy(buffer, digits_array, size * sizeof digits_array[0]);
-    qsort(buffer, size,
-        sizeof digits_array[0], cmp_uint8_by_desc
-    );
+    qsort(buffer, size, sizeof digits_array[0], cmp_uint8_by_desc);
 
     uint64_t max_number = 0;
 

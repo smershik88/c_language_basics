@@ -23,7 +23,7 @@ Output
 
 uint8_t number_of_bin_1(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     printf("%" PRIu8, number_of_bin_1(n));
-    
+
     return EXIT_SUCCESS;
 }
 

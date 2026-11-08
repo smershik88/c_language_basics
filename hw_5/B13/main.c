@@ -22,24 +22,22 @@
 1 2
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    uint32_t n = 0;
-    uint8_t odd_counter = 0,
-            even_counter = 0;
-    
+
+    uint32_t n           = 0;
+    uint8_t  odd_counter = 0, even_counter = 0;
+
     // printf("Input an integer >= 0: ");
     scanf("%" SCNu32, &n);
-
 
     while (n)
     {
         uint8_t digit = (uint8_t)(n % 10);
         n /= 10;
-        
+
         if (digit & 1U)
             ++odd_counter;
         else

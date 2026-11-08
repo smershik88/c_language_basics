@@ -5,7 +5,8 @@
 
 /*
 Сумма цифр равна произведению
-Составить логическую функцию, которая определяет, верно ли, что в заданном числе сумма цифр равна произведению. int is_happy_number(int n)
+Составить логическую функцию, которая определяет, верно ли, что в заданном числе сумма цифр равна
+произведению. int is_happy_number(int n)
 
 Формат входных данных
 Целое не отрицательное число
@@ -24,12 +25,12 @@ NO
 
 bool is_happy_number(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    uint32_t n = 0 ;
+
+    uint32_t n = 0;
 
     scanf("%" SCNu32, &n);
     printf("%s", is_happy_number(n) ? "YES" : "NO");
@@ -37,13 +38,11 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-
 bool is_happy_number(uint32_t n)
 {
-    uint32_t s = 0,
-             p = 1;
+    uint32_t s = 0, p = 1;
 
-    while(n)
+    while (n)
     {
         uint8_t digit = (uint8_t)(n % 10);
         n /= 10;

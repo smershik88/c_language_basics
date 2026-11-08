@@ -5,7 +5,8 @@
 
 /*
 Две одинаковые цифры рядом
-Ввести целое число и определить, верно ли, что в его записи есть две одинаковые цифры, стоящие рядом.
+Ввести целое число и определить, верно ли, что в его записи есть две одинаковые цифры, стоящие
+рядом.
 
 Формат входных данных
 Одно целое число
@@ -22,20 +23,20 @@ NO
 YES
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     int32_t n = 0;
-    
+
     // printf("Input an integer >= 0: ");
     scanf("%" SCNd32, &n);
-    
+
     n = abs(n);
-    
-    bool double_digit_flag = false;
-    uint8_t prev_digit = (uint8_t)(n % 10);
+
+    bool    double_digit_flag = false;
+    uint8_t prev_digit        = (uint8_t)(n % 10);
     n /= 10;
 
     while (n)
@@ -46,7 +47,7 @@ int main(int argc, char* argv[])
             double_digit_flag = true;
             break;
         }
-        n = n / 10;
+        n          = n / 10;
         prev_digit = digit;
     }
 

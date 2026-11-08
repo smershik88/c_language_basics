@@ -24,10 +24,10 @@ Output
 
 #define SIZE 12U
 
-bool read_array(int32_t *array, size_t n);
+bool   read_array(int32_t *array, size_t n);
 double avg_array(const int32_t *array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -38,11 +38,11 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
 
     printf("%.2f\n", avg_array(array, SIZE));
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -52,7 +52,7 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
@@ -65,6 +65,6 @@ double avg_array(const int32_t *array, size_t size)
 
     for (size_t i = 0; i < size; i++)
         sum += array[i];
-    
+
     return (double)sum / (double)size;
 }

@@ -5,7 +5,9 @@
 
 /*
 Пропущенное число
-В последовательности записаны целые числа от M до N ( M меньше N, M больше или равно 1)в произвольном порядке, но одно из чисел пропущено (остальные встречаются ровно по одному разу). N не превосходит 1000. Последовательность заканчивается числом 0. Определить пропущенное число.
+В последовательности записаны целые числа от M до N ( M меньше N, M больше или равно 1)в
+произвольном порядке, но одно из чисел пропущено (остальные встречаются ровно по одному разу). N не
+превосходит 1000. Последовательность заканчивается числом 0. Определить пропущенное число.
 
 Input format
 Последовательность целых чисел от M до N. M, N не превосходит 1000.
@@ -24,17 +26,17 @@ Output
 
 #define MAX_SIZE 999
 
-size_t read_array_while_not_zero(uint32_t array[], size_t size);
+size_t   read_array_while_not_zero(uint32_t array[], size_t size);
 uint32_t get_missing_number(const uint32_t array[], size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
     uint32_t array[MAX_SIZE] = {0};
 
-    size_t count = read_array_while_not_zero(array, MAX_SIZE);
+    size_t   count          = read_array_while_not_zero(array, MAX_SIZE);
     uint32_t missing_number = get_missing_number(array, count);
 
     printf("%" PRIu32, missing_number);
@@ -50,11 +52,11 @@ size_t read_array_while_not_zero(uint32_t array[], size_t size)
         return count;
 
     uint32_t number = 0;
-    while(scanf("%" SCNu32, &number) == 1)
+    while (scanf("%" SCNu32, &number) == 1)
     {
         if (number == 0 || count == size)
             break;
-        
+
         array[count++] = number;
     }
 
@@ -69,7 +71,7 @@ uint32_t get_missing_number(const uint32_t array[], size_t size)
         return missing_number;
 
     const size_t buffer_size = sizeof *array * size;
-    uint32_t *buffer = malloc(buffer_size);
+    uint32_t    *buffer      = malloc(buffer_size);
     if (!buffer)
         return missing_number;
     memcpy(buffer, array, buffer_size);
@@ -78,9 +80,9 @@ uint32_t get_missing_number(const uint32_t array[], size_t size)
     {
         for (size_t j = i; j > 0 && buffer[j] < buffer[j - 1]; j--)
         {
-                uint32_t tmp = buffer[j];
-                buffer[j] = buffer[j - 1];
-                buffer[j - 1] = tmp;
+            uint32_t tmp  = buffer[j];
+            buffer[j]     = buffer[j - 1];
+            buffer[j - 1] = tmp;
         }
     }
 
@@ -92,7 +94,7 @@ uint32_t get_missing_number(const uint32_t array[], size_t size)
             break;
         }
     }
-    
+
     free(buffer);
     return missing_number;
 }

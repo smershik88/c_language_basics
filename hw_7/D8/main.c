@@ -4,7 +4,8 @@
 
 /*
 От A до B
-Составить рекурсивную функцию, Выведите все числа от A до B включительно, в порядке возрастания, если A < B, или в порядке убывания в противном случае.
+Составить рекурсивную функцию, Выведите все числа от A до B включительно, в порядке возрастания,
+если A < B, или в порядке убывания в противном случае.
 
 Input format
 Два целых числа через пробел.
@@ -23,17 +24,16 @@ Output
 
 void print_ab_range(int32_t a, int32_t b);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    int32_t a = 0,
-            b = 0;
+    int32_t a = 0, b = 0;
 
     scanf("%" SCNd32 " %" SCNd32, &a, &b);
     print_ab_range(a, b);
-    
+
     return EXIT_SUCCESS;
 }
 

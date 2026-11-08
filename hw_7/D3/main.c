@@ -4,7 +4,8 @@
 
 /*
 В обратном порядке
-Дано целое не отрицательное число N. Выведите все его цифры по одной, в обратном порядке, разделяя их пробелами или новыми строками.
+Дано целое не отрицательное число N. Выведите все его цифры по одной, в обратном порядке, разделяя
+их пробелами или новыми строками.
 
 Input format
 Одно не отрицательное целое число
@@ -23,7 +24,7 @@ Output
 
 void print_digits_rev(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -32,7 +33,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     print_digits_rev(n);
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -43,7 +44,7 @@ void print_digits_rev(uint32_t n)
         printf("%" PRIu32, n);
         return;
     }
-    
+
     printf("%" PRIu32 " ", n % 10);
     print_digits_rev(n / 10);
 }

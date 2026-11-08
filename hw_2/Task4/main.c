@@ -3,15 +3,15 @@
 
 /*
 Вывести таблицы истинности для:
-A -> B = !A || B 
+A -> B = !A || B
 A <-> B = (A && B) || (!A && !B)
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     puts("A -> B = !A || B");
     puts("A\tB\t!A\t!A || B");
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
         {
             printf("%u\t%u\t%u\t%u\n", i, j, !i, !i || j);
         }
-    }   
+    }
 
     puts("\nA <-> B = (A && B) || (!A && !B)");
     puts("A\tB\tA && B\t!A\t!B\t(!A && !B)\t(A && B) || (!A && !B)");
@@ -30,9 +30,8 @@ int main(int argc, char* argv[])
     {
         for (unsigned int j = 0; j <= 1; j++)
         {
-            printf("%u\t%u\t%u\t%u\t%u\t%u\t\t%u\n",
-                i, j, i && j, !i, !j, ! i&& !j, (i && j) || (!i && !j)
-            );
+            printf("%u\t%u\t%u\t%u\t%u\t%u\t\t%u\n", i, j, i && j, !i, !j, !i && !j,
+                   (i && j) || (!i && !j));
         }
     }
 

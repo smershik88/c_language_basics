@@ -23,11 +23,11 @@ NO
 YES
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     uint32_t n = 0;
 
     // printf("Input an one natural number: ");
@@ -42,12 +42,12 @@ int main(int argc, char* argv[])
     {
         if (n % i)
             continue;
-        
+
         prime_flag = false;
         break;
     }
 
-    printf("%s\n", prime_flag ? "YES" : "NO");   
-    
+    printf("%s\n", prime_flag ? "YES" : "NO");
+
     return EXIT_SUCCESS;
 }

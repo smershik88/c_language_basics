@@ -28,11 +28,11 @@ float sinus(float x)
 double deg_to_rad(double deg);
 double sin_taylor(double rad, double err);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     double alpha = 0;
 
     scanf("%lf", &alpha);
@@ -45,19 +45,14 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-double deg_to_rad(double deg)
-{
-    return deg * (M_PI / 180);
-}
+double deg_to_rad(double deg) { return deg * (M_PI / 180); }
 
 double sin_taylor(double deg, double err)
 {
-    double  rad = deg_to_rad(deg),
-            term = rad,
-            sum = 0;
-    
+    double rad = deg_to_rad(deg), term = rad, sum = 0;
+
     uint8_t n = 1;
-    while(fabs(term) > err)
+    while (fabs(term) > err)
     {
         sum += term;
         term = term * (-rad * rad) / ((2 * n) * (2 * n + 1));

@@ -5,8 +5,9 @@
 
 /*
 Проверка на простоту
-Дано натуральное число n ≥ 1. Проверьте, является ли оно простым. Программа должна вывести слово YES, если число простое или NO в противном случае. Необходимо составить рекурсивную функцию и использовать ее.
-int is_prime(int n, int delitel)
+Дано натуральное число n ≥ 1. Проверьте, является ли оно простым. Программа должна вывести слово
+YES, если число простое или NO в противном случае. Необходимо составить рекурсивную функцию и
+использовать ее. int is_prime(int n, int delitel)
 
 Input format
 Натуральное число
@@ -29,7 +30,7 @@ YES
 
 bool is_prime(uint32_t n, uint32_t divisor);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -38,7 +39,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     puts(is_prime(n, 2) ? "YES" : "NO");
-    
+
     return EXIT_SUCCESS;
 }
 

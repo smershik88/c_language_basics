@@ -5,7 +5,8 @@
 
 /*
 Среднее арифметическое чисел
-Написать функцию, которая возвращает среднее арифметическое двух переданных ей аргументов (параметров). int middle(int a, int b)
+Написать функцию, которая возвращает среднее арифметическое двух переданных ей аргументов
+(параметров). int middle(int a, int b)
 
 Формат входных данных
 Два целых не отрицательных числа
@@ -24,25 +25,21 @@
 
 int32_t middle(int32_t a, int32_t b);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t a = 0,
-            b = 0;
+
+    int32_t a = 0, b = 0;
 
     scanf("%" SCNd32 " %" SCNd32, &a, &b);
-    
+
     if (a < 0 || b < 0)
         return EXIT_FAILURE;
 
     printf("%" PRId32 "\n", middle(a, b));
-    
+
     return EXIT_SUCCESS;
 }
 
-int32_t middle(int32_t a, int32_t b)
-{
-    return (a + b) / 2;
-}
+int32_t middle(int32_t a, int32_t b) { return (a + b) / 2; }

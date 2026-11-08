@@ -21,23 +21,23 @@ YES
 NO
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t n = 0;
+
+    int32_t n            = 0;
     uint8_t nine_counter = 0;
-    
+
     // printf("Input an integer: ");
     scanf("%" SCNd32, &n);
-    
+
     n = abs(n);
-    
+
     while (n)
     {
         uint8_t digit = (uint8_t)(n % 10);
-        n = n / 10;
+        n             = n / 10;
         if (digit == 9)
             nine_counter++;
     }

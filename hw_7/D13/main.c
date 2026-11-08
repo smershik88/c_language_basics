@@ -23,7 +23,7 @@
 
 void print_prime_factors(uint32_t n, uint32_t divisor);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     print_prime_factors(n, 2);
-    
+
     return EXIT_SUCCESS;
 }
 

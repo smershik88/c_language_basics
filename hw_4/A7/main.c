@@ -20,23 +20,19 @@
 9 15
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t a = 0,
-            b = 0;
-    
+
+    int32_t a = 0, b = 0;
+
     // printf("Input two integer numbers: ");
     scanf("%" SCNd32 " %" SCNd32, &a, &b);
 
     bool a_le_b = a <= b;
 
-    printf("%" PRId32 " %" PRId32 "\n", 
-        a_le_b ? a : b, 
-        a_le_b ? b : a
-    );
+    printf("%" PRId32 " %" PRId32 "\n", a_le_b ? a : b, a_le_b ? b : a);
 
     return EXIT_SUCCESS;
 }

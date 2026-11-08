@@ -22,14 +22,13 @@ YES
 NO
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    uint32_t n = 0,
-             s = 0;
-    
+
+    uint32_t n = 0, s = 0;
+
     // printf("Input an one natural number: ");
     scanf("%" SCNu32, &n);
 
@@ -41,7 +40,7 @@ int main(int argc, char* argv[])
         s += digit;
     }
 
-    printf("%s\n", s == 10 ? "YES" : "NO");   
-    
+    printf("%s\n", s == 10 ? "YES" : "NO");
+
     return EXIT_SUCCESS;
 }

@@ -25,18 +25,18 @@ int recurs_power(int n, int p)
 
 int64_t recurs_power(int8_t n, uint8_t p);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    int8_t n = 0;
+    int8_t  n = 0;
     uint8_t p = 0;
 
     scanf("%" SCNd8 " %" SCNu8, &n, &p);
 
     printf("%" PRId64, recurs_power(n, p));
-    
+
     return EXIT_SUCCESS;
 }
 

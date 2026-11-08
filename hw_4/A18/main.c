@@ -5,7 +5,9 @@
 
 /*
 Above, less, equal
-Ввести два числа. Если первое число больше второго, то программа печатает слово Above. Если первое число меньше второго, то программа печатает слово Less. А если числа равны, программа напечатает сообщение Equal.
+Ввести два числа. Если первое число больше второго, то программа печатает слово Above. Если первое
+число меньше второго, то программа печатает слово Less. А если числа равны, программа напечатает
+сообщение Equal.
 
 Формат входных данных
 Два целых числа
@@ -22,20 +24,17 @@ Equal
 Above
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t a = 0,
-        b = 0;
+
+    int32_t a = 0, b = 0;
 
     // printf("Input two integer numbers: ");
     scanf("%" SCNd32 " %" SCNd32, &a, &b);
 
-    printf("%s\n",
-        a < b ? "Less" : (a > b ? "Above" : "Equal")
-    );
+    printf("%s\n", a < b ? "Less" : (a > b ? "Above" : "Equal"));
 
     return EXIT_SUCCESS;
 }

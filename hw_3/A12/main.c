@@ -20,13 +20,12 @@
 1
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int number = 0,
-        digits_sum = 0;
+
+    int number = 0, digits_sum = 0;
 
     // printf("Input integer number: ");
     scanf("%d", &number);

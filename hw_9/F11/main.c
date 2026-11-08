@@ -5,7 +5,9 @@
 
 /*
 Сумма минимальна
-Дан целочисленный массив из 30 элементов. Элементы массива могут принимать произвольные целые значения помещающиеся в int. Необходимо создать функцию, которая находит и выводит в порядке возрастания номера двух элементов массива, сумма которых минимальна.
+Дан целочисленный массив из 30 элементов. Элементы массива могут принимать произвольные целые
+значения помещающиеся в int. Необходимо создать функцию, которая находит и выводит в порядке
+возрастания номера двух элементов массива, сумма которых минимальна.
 
 Input format
 Последовательность из 30 целых чисел через пробел
@@ -23,7 +25,7 @@ Output
 bool read_array(int32_t *array, size_t n);
 void print_min_sum_pair(const int32_t array[], size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -48,7 +50,7 @@ bool read_array(int32_t *array, size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
@@ -57,14 +59,13 @@ void print_min_sum_pair(const int32_t array[], size_t size)
     if (!array || size < 2)
         return;
 
-    size_t  idx_1 = 0,
-            idx_2 = 1;
+    size_t idx_1 = 0, idx_2 = 1;
 
     for (size_t i = 2; i < size; i++)
     {
         if (array[i] < array[idx_1] || array[i] < array[idx_2])
         {
-            if (array[idx_1]  >= array[idx_2])
+            if (array[idx_1] >= array[idx_2])
                 idx_1 = i;
             else
                 idx_2 = i;
@@ -73,10 +74,10 @@ void print_min_sum_pair(const int32_t array[], size_t size)
         if (idx_1 > idx_2)
         {
             size_t tmp = idx_1;
-            idx_1 = idx_2;
-            idx_2 = tmp;
+            idx_1      = idx_2;
+            idx_2      = tmp;
         }
     }
-    
+
     printf("%zu %zu", idx_1, idx_2);
 }

@@ -4,7 +4,8 @@
 
 /*
 В двоичную систему
-Перевести натуральное число в двоичную систему счисления. Необходимо реализовать рекурсивную функцию.
+Перевести натуральное число в двоичную систему счисления. Необходимо реализовать рекурсивную
+функцию.
 
 Input format
 Целое не отрицательное число в десятичной системе счисления
@@ -23,7 +24,7 @@ Output
 
 uint64_t dec_to_bin(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -31,8 +32,8 @@ int main(int argc, char* argv[])
     uint32_t n = 0;
 
     scanf("%" SCNu32, &n);
-    printf("%" PRIu64 , dec_to_bin(n));
-    
+    printf("%" PRIu64, dec_to_bin(n));
+
     return EXIT_SUCCESS;
 }
 

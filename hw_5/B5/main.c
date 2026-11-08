@@ -21,12 +21,12 @@
 3
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t n = 0;
+
+    int32_t n          = 0;
     uint8_t digits_sum = 0;
 
     // printf("Input an integer >= 0: ");

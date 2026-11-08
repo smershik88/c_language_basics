@@ -4,8 +4,8 @@
 
 /*
 Монотонная последовательность
-Дана монотонная последовательность, в которой каждое натуральное число k встречается ровно k раз: 1, 2, 2, 3, 3, 3, 4, 4, 4, 4,…
-Выведите первые n членов этой последовательности.
+Дана монотонная последовательность, в которой каждое натуральное число k встречается ровно k раз: 1,
+2, 2, 3, 3, 3, 4, 4, 4, 4,… Выведите первые n членов этой последовательности.
 
 Input format
 Натуральное число.
@@ -20,7 +20,7 @@ Output
 
 uint32_t print_monotonic_seq(uint32_t k, uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -29,13 +29,13 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     print_monotonic_seq(1, n);
-    
+
     return EXIT_SUCCESS;
 }
 
 uint32_t print_monotonic_seq(uint32_t k, uint32_t n)
 {
-    if(n <= 0)
+    if (n <= 0)
         return 0;
 
     uint32_t quantity_to_print = k < n ? k : n;

@@ -23,15 +23,12 @@ y=k*x+b
 1.00 1.00
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
-    int32_t x1 = 0,
-        y1 = 0,
-        x2 = 0,
-        y2 = 0;
+
+    int32_t x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 
     // printf("Input x1 y1 x2 y2 as integer numbers: ");
     scanf("%" SCNd32 " %" SCNd32 " %" SCNd32 " %" SCNd32, &x1, &y1, &x2, &y2);
@@ -49,7 +46,6 @@ int main(int argc, char* argv[])
     double b = y1 - k * x1;
 
     printf("%.2f %.2f\n", k, b);
-
 
     return EXIT_SUCCESS;
 }

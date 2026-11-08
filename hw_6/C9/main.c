@@ -19,18 +19,18 @@ Output
 
 uint64_t factorial(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     uint32_t n = 0;
 
     scanf("%" SCNu32, &n);
 
     if (n > 20)
         return EXIT_FAILURE;
-    
+
     printf("%" PRId64, factorial(n));
 
     return EXIT_SUCCESS;
@@ -40,5 +40,6 @@ uint64_t factorial(uint32_t n)
 {
     if (n <= 1)
         return 1;
-    else return n * factorial(n - 1);
+    else
+        return n * factorial(n - 1);
 }

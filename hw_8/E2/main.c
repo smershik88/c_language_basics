@@ -24,10 +24,10 @@ Output
 
 #define SIZE 5U
 
-bool read_array(int32_t *array, size_t n);
+bool    read_array(int32_t *array, size_t n);
 int32_t min_array(const int32_t *array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -36,13 +36,13 @@ int main(int argc, char* argv[])
 
     if (!read_array(array, SIZE))
         return EXIT_FAILURE;
-    
+
     printf("%" PRId32 "\n", min_array(array, SIZE));
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -52,7 +52,7 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
@@ -68,6 +68,6 @@ int32_t min_array(const int32_t *array, size_t size)
         if (array[i] < min)
             min = array[i];
     }
-    
+
     return min;
 }

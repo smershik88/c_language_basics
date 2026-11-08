@@ -24,10 +24,10 @@ Output
 
 #define SIZE 10U
 
-bool read_array(int32_t *array, size_t n);
+bool    read_array(int32_t *array, size_t n);
 int64_t sum_two_max_array(const int32_t *array, size_t size);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -38,11 +38,11 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
 
     printf("%" PRId64, sum_two_max_array(array, SIZE));
-    
+
     return EXIT_SUCCESS;
 }
 
-bool read_array(int32_t *array,  size_t n)
+bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
         return false;
@@ -52,14 +52,13 @@ bool read_array(int32_t *array,  size_t n)
         if (scanf("%" SCNd32, array + i) != 1)
             return false;
     }
-    
+
     return true;
 }
 
 int64_t sum_two_max_array(const int32_t *array, size_t size)
 {
-    int32_t max_1 = INT32_MIN,
-            max_2 = INT32_MIN;
+    int32_t max_1 = INT32_MIN, max_2 = INT32_MIN;
 
     if (!array || !size)
         return 0;

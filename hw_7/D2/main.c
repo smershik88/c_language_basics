@@ -23,7 +23,7 @@
 
 uint64_t sum_to_n(uint32_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
@@ -32,14 +32,14 @@ int main(int argc, char* argv[])
 
     scanf("%" SCNu32, &n);
     printf("%" PRIu64, sum_to_n(n));
-    
+
     return EXIT_SUCCESS;
 }
 
 uint64_t sum_to_n(uint32_t n)
 {
     if (n == 1)
-        return 1; 
-    
+        return 1;
+
     return n + sum_to_n(n - 1);
 }

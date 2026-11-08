@@ -26,18 +26,17 @@ int akkerman(int m, int n)
 
 uint64_t akkerman(uint32_t m, uint64_t n);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    uint32_t m = 0,
-             n = 0;
+    uint32_t m = 0, n = 0;
 
     scanf("%" SCNu32 " %" SCNu32, &m, &n);
 
     printf("%" PRIu64, akkerman(m, n));
-    
+
     return EXIT_SUCCESS;
 }
 
@@ -45,7 +44,7 @@ uint64_t akkerman(uint32_t n, uint64_t m)
 {
     if (n == 0)
         return m + 1;
-    
+
     if (m == 0)
         return akkerman(n - 1, 1);
 

@@ -21,11 +21,11 @@ YES
 NO
 */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    
+
     int32_t n = 0;
     uint8_t d = 0;
 
