@@ -1,3 +1,7 @@
 add_executable(D5 main.c)
+
+# Переопределяем требуемый стандарт языка
 target_compile_features(D5 PRIVATE c_std_11)
-target_link_libraries(D5 PRIVATE common_warnings)
+
+# Подключаем предупреждения и, при необходимости, санитайзеры.
+enable_common_checks(D5)

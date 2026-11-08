@@ -1,3 +1,7 @@
 add_executable(B9 main.c)
+
+# Переопределяем требуемый стандарт языка
 target_compile_features(B9 PRIVATE c_std_11)
-target_link_libraries(B9 PRIVATE common_warnings)
+
+# Подключаем предупреждения и, при необходимости, санитайзеры.
+enable_common_checks(B9)

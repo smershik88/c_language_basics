@@ -1,3 +1,7 @@
 add_executable(E11 main.c)
+
+# Переопределяем требуемый стандарт языка
 target_compile_features(E11 PRIVATE c_std_11)
-target_link_libraries(E11 PRIVATE common_warnings)
+
+# Подключаем предупреждения и, при необходимости, санитайзеры.
+enable_common_checks(E11)

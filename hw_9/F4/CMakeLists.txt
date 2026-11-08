@@ -1,3 +1,7 @@
 add_executable(F4 main.c)
+
+# Переопределяем требуемый стандарт языка
 target_compile_features(F4 PRIVATE c_std_11)
-target_link_libraries(F4 PRIVATE common_warnings)
+
+# Подключаем предупреждения и, при необходимости, санитайзеры.
+enable_common_checks(F4)

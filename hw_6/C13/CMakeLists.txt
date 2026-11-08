@@ -1,3 +1,7 @@
 add_executable(C13 main.c)
+
+# Переопределяем требуемый стандарт языка
 target_compile_features(C13 PRIVATE c_std_11)
-target_link_libraries(C13 PRIVATE common_warnings)
+
+# Подключаем предупреждения и, при необходимости, санитайзеры.
+enable_common_checks(C13)
