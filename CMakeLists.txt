@@ -143,11 +143,6 @@ target_compile_options(common_warnings INTERFACE
     # Обнаруживает подозрительное использование sizeof указателя
     # как размера буфера в memcpy, memset и родственных функциях.
 
-    "$<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:-Wvla>"
-    # Предупреждает об использовании массивов переменной длины (VLA).
-    # VLA обязательны в C99 (с оговорёнными исключениями для типов
-    # переменной модификации) и являются необязательной возможностью C11.
-
     "$<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:-Walloca>"
     # Предупреждает об использовании alloca для выделения памяти
     # в стеке. alloca не входит в стандарт ISO C.
@@ -518,11 +513,17 @@ option(DISABLE_VLA
 )
 
 if(DISABLE_VLA)
-    target_compile_options(common_warnings INTERFACE
-        "$<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:-Werror=vla>"
-    )
-endif()
 
+    target_compile_options(common_warnings INTERFACE
+
+        "$<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:-Wvla>"
+        # Включает предупреждение при использовании VLA.
+
+        "$<$<OR:$<C_COMPILER_ID:GNU>,$<C_COMPILER_ID:Clang>>:-Werror=vla>"
+        # Превращает использование VLA в ошибку компиляции.
+    )
+
+endif()
 
 # ------------------------------------------------------------
 # 4.3. Проверки совместимости со старыми стандартами C
