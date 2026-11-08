@@ -673,7 +673,246 @@ endfunction()
 
 
 # ============================================================
-# 7. Учебные проекты
+# 7. Статический анализ clang-tidy
+# ============================================================
+
+# Проверяет версию отдельного инструмента LLVM.
+# В .clang-format используются параметры, появившиеся в clang-format 20,
+# поэтому clang-tidy и clang-format должны быть версии 20 или новее.
+function(require_llvm_tool_version tool_path tool_name minimum_version)
+    execute_process(
+        COMMAND "${tool_path}" --version
+        RESULT_VARIABLE _tool_version_result
+        OUTPUT_VARIABLE _tool_version_output
+        ERROR_VARIABLE _tool_version_error
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    if(NOT "${_tool_version_result}" STREQUAL "0")
+        message(FATAL_ERROR
+            "Cannot execute ${tool_name}: ${_tool_version_error}"
+        )
+    endif()
+
+    string(
+        REGEX MATCH "[0-9]+\\.[0-9]+(\\.[0-9]+)?"
+        _detected_tool_version
+        "${_tool_version_output}"
+    )
+
+    if(NOT _detected_tool_version)
+        message(FATAL_ERROR
+            "Cannot determine ${tool_name} version from: ${_tool_version_output}"
+        )
+    endif()
+
+    if(_detected_tool_version VERSION_LESS "${minimum_version}")
+        message(FATAL_ERROR
+            "${tool_name} ${_detected_tool_version} is too old. "
+            "This project configuration requires ${minimum_version} or newer."
+        )
+    endif()
+
+    message(STATUS "${tool_name} version: ${_detected_tool_version}")
+endfunction()
+
+
+option(ENABLE_CLANG_TIDY
+    "Enable clang-tidy static analysis"
+    OFF
+)
+
+option(ENABLE_CLANG_TIDY_WARNINGS_AS_ERRORS
+    "Treat clang-tidy diagnostics as errors"
+    OFF
+)
+
+if(ENABLE_CLANG_TIDY)
+
+    # --------------------------------------------------------
+    # Поиск clang-tidy
+    # --------------------------------------------------------
+    
+    # Ищем clang-tidy.
+    # Можно переопределить путь через CMakePresets.json.
+    find_program(CLANG_TIDY_EXECUTABLE
+        NAMES clang-tidy
+        DOC "Path to clang-tidy executable"
+    )
+
+    if(NOT CLANG_TIDY_EXECUTABLE)
+        message(FATAL_ERROR
+            "ENABLE_CLANG_TIDY is ON, but clang-tidy was not found. "
+            "Add its directory to PATH or set CLANG_TIDY_EXECUTABLE."
+        )
+    endif()
+
+    # .clang-tidy uses FormatStyle: file and the project's
+    # .clang-format contains options introduced in clang-format 20.
+    require_llvm_tool_version(
+        "${CLANG_TIDY_EXECUTABLE}"
+        "clang-tidy"
+        "20.0"
+    )
+
+    # --------------------------------------------------------
+    # Формирование команды clang-tidy
+    # --------------------------------------------------------
+
+    set(CLANG_TIDY_COMMAND
+        "${CLANG_TIDY_EXECUTABLE}"
+
+        "--config-file=${PROJECT_SOURCE_DIR}/.clang-tidy"
+
+        # При анализе GCC compilation flags могут встречаться
+        # предупреждения, неизвестные Clang.
+        # Подавляем именно диагностику неизвестных -W опций.
+        "--extra-arg=-Wno-unknown-warning-option"
+    )
+
+    # --------------------------------------------------------
+    # Строгость диагностики
+    # --------------------------------------------------------
+
+    if(ENABLE_CLANG_TIDY_WARNINGS_AS_ERRORS)
+        list(APPEND CLANG_TIDY_COMMAND
+            "--warnings-as-errors=*"
+        )
+    endif()
+
+    # --------------------------------------------------------
+    # Подключение к CMake
+    # --------------------------------------------------------
+
+    # Должно быть выполнено до создания исполняемых целей!
+    set(CMAKE_C_CLANG_TIDY
+        "${CLANG_TIDY_COMMAND}"
+    )
+
+    message(STATUS
+        "clang-tidy enabled: ${CLANG_TIDY_EXECUTABLE}"
+    )
+
+endif()
+
+
+# ============================================================
+# 8. Форматирование исходников clang-format
+# ============================================================
+
+option(ENABLE_CLANG_FORMAT_TARGETS
+    "Create clang-format targets"
+    ON
+)
+
+if(ENABLE_CLANG_FORMAT_TARGETS)
+
+    # Ищем clang-format.
+    # Можно переопределить путь через CMakePresets.json.
+    find_program(CLANG_FORMAT_EXECUTABLE
+        NAMES clang-format
+        DOC "Path to clang-format executable"
+    )
+
+    if(NOT CLANG_FORMAT_EXECUTABLE)
+
+        message(WARNING
+            "clang-format was not found. "
+            "Formatting targets will not be available. "
+            "Add its directory to PATH or set CLANG_FORMAT_EXECUTABLE."
+        )
+
+    else()
+
+        # The project .clang-format uses options introduced in version 20.
+        require_llvm_tool_version(
+            "${CLANG_FORMAT_EXECUTABLE}"
+            "clang-format"
+            "20.0"
+        )
+
+        # ----------------------------------------------------
+        # Получаем список исходных файлов проекта
+        # ----------------------------------------------------
+
+        file(GLOB_RECURSE PROJECT_C_FORMAT_FILES
+            CONFIGURE_DEPENDS
+
+            "${PROJECT_SOURCE_DIR}/*.c"
+            "${PROJECT_SOURCE_DIR}/*.h"
+        )
+
+        # Исключаем каталоги сгенерированных файлов,
+        # сторонних библиотек и служебные каталоги.
+        list(FILTER PROJECT_C_FORMAT_FILES
+            EXCLUDE REGEX
+            "/(\\.git|out|build|third_party|vendor)/"
+        )
+
+        if(PROJECT_C_FORMAT_FILES)
+
+            # ------------------------------------------------
+            # Цель format
+            # ------------------------------------------------
+
+            add_custom_target(format
+
+                COMMAND
+                    "${CLANG_FORMAT_EXECUTABLE}"
+                    --style=file
+                    -i
+                    ${PROJECT_C_FORMAT_FILES}
+
+                WORKING_DIRECTORY
+                    "${PROJECT_SOURCE_DIR}"
+
+                COMMENT
+                    "Formatting C source files with clang-format..."
+
+                VERBATIM
+            )
+
+            # ------------------------------------------------
+            # Цель format-check
+            # ------------------------------------------------
+
+            add_custom_target(format-check
+
+                COMMAND
+                    "${CLANG_FORMAT_EXECUTABLE}"
+                    --style=file
+                    --dry-run
+                    --Werror
+                    ${PROJECT_C_FORMAT_FILES}
+
+                WORKING_DIRECTORY
+                    "${PROJECT_SOURCE_DIR}"
+
+                COMMENT
+                    "Checking C source formatting..."
+
+                VERBATIM
+            )
+
+            message(STATUS
+                "clang-format enabled: ${CLANG_FORMAT_EXECUTABLE}"
+            )
+
+        else()
+
+            message(STATUS
+                "clang-format: no C source files found."
+            )
+
+        endif()
+
+    endif()
+
+endif()
+
+
+# ============================================================
+# 9. Учебные проекты
 # ============================================================
 
 add_subdirectory(hw_1 hw_1)
