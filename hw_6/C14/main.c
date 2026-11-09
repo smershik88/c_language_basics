@@ -23,6 +23,8 @@ YES
 NO
 */
 
+#define DEC_BASE 10
+
 bool is_digits_sum_even(uint32_t n);
 
 int main(int argc, char *argv[])
@@ -43,8 +45,8 @@ bool is_digits_sum_even(uint32_t n)
     uint8_t digits_sum = 0;
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
         digits_sum += digit;
     }
 

@@ -46,7 +46,10 @@ int main(int argc, char *argv[])
     int8_t mounth_number = 0;
 
     // printf("Input mounth number as integer: ");
-    scanf("%" SCNd8, &mounth_number);
+    if (scanf("%" SCNd8, &mounth_number) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     switch (mounth_number)
     {

@@ -30,7 +30,10 @@ int main(int argc, char *argv[])
     int a = 0, b = 0, c = 0, s = 0;
 
     // printf("Input three integer numbers: ");
-    scanf("%d %d %d", &a, &b, &c);
+    if (scanf("%d %d %d", &a, &b, &c) != 3)
+    {
+        return EXIT_FAILURE;
+    }
 
     s = a + b + c;
 

@@ -31,7 +31,10 @@ int main(int argc, char *argv[])
     int32_t x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 
     // printf("Input x1 y1 x2 y2 as integer numbers: ");
-    scanf("%" SCNd32 " %" SCNd32 " %" SCNd32 " %" SCNd32, &x1, &y1, &x2, &y2);
+    if (scanf("%" SCNd32 " %" SCNd32 " %" SCNd32 " %" SCNd32, &x1, &y1, &x2, &y2) != 4)
+    {
+        return EXIT_FAILURE;
+    }
 
     /*
         y1 = k * x1 + b     b = y1 - k * x1                 b = y1 - k * x1
@@ -40,7 +43,9 @@ int main(int argc, char *argv[])
     */
 
     if (x2 - x1 == 0)
+    {
         return EXIT_FAILURE;
+    }
 
     double k = (double)(y2 - y1) / (x2 - x1);
     double b = y1 - k * x1;

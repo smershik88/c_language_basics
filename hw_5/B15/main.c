@@ -34,9 +34,15 @@ int main(int argc, char *argv[])
 
     do
     {
-        scanf("%" SCNu32, &n);
+        if (scanf("%" SCNu32, &n) != 1)
+        {
+            return EXIT_FAILURE;
+        }
+
         if (n && !(n & 1U))
+        {
             ++i;
+        }
     } while (n);
 
     printf("%" PRIu32 "\n", i);

@@ -22,6 +22,9 @@
 5 25 125
 */
 
+#define MIN 1
+#define MAX 100
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -30,13 +33,20 @@ int main(int argc, char *argv[])
     uint8_t n = 0;
 
     // printf("Input the number n as a natural number less than 100: ");
-    scanf("%" SCNu8, &n);
-
-    if (n < 1 || n > 100)
+    if (scanf("%" SCNu8, &n) != 1)
+    {
         return EXIT_FAILURE;
+    }
+
+    if (n < MIN || n > MAX)
+    {
+        return EXIT_FAILURE;
+    }
 
     for (uint8_t i = 1; i <= n; i++)
+    {
         printf("%" PRIu8 " %" PRIu16 " %" PRIu32 "\n", i, i * i, i * i * i);
+    }
 
     return EXIT_SUCCESS;
 }

@@ -33,8 +33,12 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     for (size_t i = 0; i < SIZE; i++)
+    {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return EXIT_FAILURE;
+        }
+    }
 
     printf("%.3f\n", avg_array(array, SIZE));
 
@@ -44,12 +48,16 @@ int main(int argc, char *argv[])
 double avg_array(const int32_t *array, size_t size)
 {
     if (!array || !size)
-        return 0.0;
+    {
+        return 0;
+    }
 
     int64_t sum = 0;
 
     for (size_t i = 0; i < size; i++)
+    {
         sum += array[i];
+    }
 
     return (double)sum / (double)size;
 }

@@ -31,17 +31,24 @@ int main(int argc, char *argv[])
     uint32_t n = 0;
 
     // printf("Input an one natural number: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (!n)
+    {
         return EXIT_FAILURE;
+    }
 
     bool prime_flag = n == 1 ? false : true;
 
     for (uint32_t i = 2; i <= sqrt(n); i++)
     {
         if (n % i)
+        {
             continue;
+        }
 
         prime_flag = false;
         break;

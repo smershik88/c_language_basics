@@ -33,15 +33,22 @@ int main(int argc, char *argv[])
     uint32_t fib_prev = 1, fib_2nd_to_prev = 1;
 
     // printf("Input an one natural number: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (!n)
+    {
         return EXIT_FAILURE;
+    }
 
     printf("1");
 
     if (n == 1)
+    {
         return EXIT_SUCCESS;
+    }
 
     printf(" 1");
 

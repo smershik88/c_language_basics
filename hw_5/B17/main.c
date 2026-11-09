@@ -22,6 +22,9 @@
 22
 */
 
+#define MIN      10
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -30,27 +33,34 @@ int main(int argc, char *argv[])
     uint32_t n = 0;
 
     // printf("Input an one natural number > 10: ");
-    scanf("%" SCNu32, &n);
-
-    if (n <= 10)
+    if (scanf("%" SCNu32, &n) != 1)
+    {
         return EXIT_FAILURE;
+    }
 
-    for (uint32_t i = 10; i <= n; i++)
+    if (n <= MIN)
+    {
+        return EXIT_FAILURE;
+    }
+
+    for (uint32_t i = MIN; i <= n; i++)
     {
         uint32_t t = i;
         uint32_t s = 0, p = 1;
 
         while (t)
         {
-            uint8_t digit = (uint8_t)(t % 10);
-            t /= 10;
+            uint8_t digit = (uint8_t)(t % DEC_BASE);
+            t /= DEC_BASE;
 
             s += digit;
             p *= digit;
         }
 
         if (s == p)
+        {
             printf("%" PRIu32 " ", i);
+        }
     }
 
     return EXIT_SUCCESS;

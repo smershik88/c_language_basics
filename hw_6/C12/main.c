@@ -25,6 +25,11 @@ float sinus(float x)
 #define M_PI 3.14159265358979323846
 #endif
 
+#define ALPHA_MIN 0
+#define ALPHA_MAX 90
+#define ERR       0.001
+#define PI_RAD    180
+
 double deg_to_rad(double deg);
 double sin_taylor(double rad, double err);
 
@@ -35,17 +40,22 @@ int main(int argc, char *argv[])
 
     double alpha = 0;
 
-    scanf("%lf", &alpha);
-
-    if (alpha < 0 || alpha > 90)
+    if (scanf("%lf", &alpha) != 1)
+    {
         return EXIT_FAILURE;
+    }
 
-    printf("%.3lf", sin_taylor(alpha, 0.001));
+    if (alpha < ALPHA_MIN || alpha > ALPHA_MAX)
+    {
+        return EXIT_FAILURE;
+    }
+
+    printf("%.3lf", sin_taylor(alpha, ERR));
 
     return EXIT_SUCCESS;
 }
 
-double deg_to_rad(double deg) { return deg * (M_PI / 180); }
+double deg_to_rad(double deg) { return deg * (M_PI / PI_RAD); }
 
 double sin_taylor(double deg, double err)
 {

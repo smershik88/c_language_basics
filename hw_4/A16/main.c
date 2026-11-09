@@ -26,7 +26,10 @@ int main(int argc, char *argv[])
     int32_t a = 0, b = 0, c = 0;
 
     // printf("Input three integer numbers: ");
-    scanf("%" SCNd32 " %" SCNd32 " %" SCNd32, &a, &b, &c);
+    if (scanf("%" SCNd32 " %" SCNd32 " %" SCNd32, &a, &b, &c) != 3)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%s\n", a < b && b < c ? "YES" : "NO");
 

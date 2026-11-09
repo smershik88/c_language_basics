@@ -31,10 +31,15 @@ int main(int argc, char *argv[])
     uint32_t a = 0, b = 0;
 
     // printf("Input two natural numbers: ");
-    scanf("%" SCNu32 " %" SCNu32, &a, &b);
+    if (scanf("%" SCNu32 " %" SCNu32, &a, &b) != 2)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (!a || !b)
+    {
         return EXIT_FAILURE;
+    }
 
     while (b)
     {

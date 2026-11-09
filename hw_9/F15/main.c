@@ -35,14 +35,18 @@ int count_bigger_abs(int n, int a[])
     int count = 0;
 
     if (!a || n <= 0)
+    {
         return count;
+    }
 
     int max = a[0];
 
     for (int i = 1; i < n; i++)
     {
         if (a[i] > max)
+        {
             max = a[i];
+        }
     }
 
     for (int i = 0; i < n; i++)
@@ -50,7 +54,9 @@ int count_bigger_abs(int n, int a[])
         long long value_mod = a[i] > 0 ? a[i] : -a[i];
 
         if (value_mod > max)
+        {
             count++;
+        }
     }
 
     return count;

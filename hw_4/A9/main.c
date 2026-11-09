@@ -43,7 +43,6 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
 static int32_t max_5_int32(int32_t a, int32_t b, int32_t c, int32_t d, int32_t e)
 {
     int32_t max = a;

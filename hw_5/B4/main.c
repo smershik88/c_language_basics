@@ -21,6 +21,8 @@ YES
 NO
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -30,13 +32,16 @@ int main(int argc, char *argv[])
     uint8_t d = 0;
 
     // printf("Enter an integer number: ");
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     n = abs(n);
 
     while (n)
     {
-        n /= 10;
+        n /= DEC_BASE;
         d++;
     }
 

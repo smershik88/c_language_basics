@@ -22,6 +22,9 @@ YES
 NO
 */
 
+#define DEC_BASE 10
+#define SUM      10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -30,17 +33,20 @@ int main(int argc, char *argv[])
     uint32_t n = 0, s = 0;
 
     // printf("Input an one natural number: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
 
         s += digit;
     }
 
-    printf("%s\n", s == 10 ? "YES" : "NO");
+    printf("%s\n", s == SUM ? "YES" : "NO");
 
     return EXIT_SUCCESS;
 }

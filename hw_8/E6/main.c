@@ -45,12 +45,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -59,12 +63,16 @@ bool read_array(int32_t *array, size_t n)
 double avg_array(const int32_t *array, size_t size)
 {
     if (!array || !size)
-        return 0.0;
+    {
+        return 0;
+    }
 
     int64_t sum = 0;
 
     for (size_t i = 0; i < size; i++)
+    {
         sum += array[i];
+    }
 
     return (double)sum / (double)size;
 }

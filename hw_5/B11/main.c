@@ -22,6 +22,8 @@
 287
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -31,9 +33,12 @@ int main(int argc, char *argv[])
     uint32_t reversed_n = 0;
 
     // printf("Input an integer >= 0: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
-    if (n < 10)
+    if (n < DEC_BASE)
     {
         printf("%" PRIu32, n);
         return EXIT_SUCCESS;
@@ -43,9 +48,9 @@ int main(int argc, char *argv[])
 
     for (int8_t i = number_of_digits - 1; i >= 0; i--)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        reversed_n += (uint32_t)(digit * pow(10, i));
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        reversed_n += (uint32_t)(digit * pow(DEC_BASE, i));
+        n /= DEC_BASE;
     }
 
     printf("%" PRIu32 "\n", reversed_n);

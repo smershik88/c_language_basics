@@ -27,6 +27,8 @@
 2 2
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -35,14 +37,17 @@ int main(int argc, char *argv[])
     uint32_t n = 0;
 
     // printf("Input an integer >= 0: ");
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
-    uint8_t min = (uint8_t)(n % 10), max = 0;
+    uint8_t min = (uint8_t)(n % DEC_BASE), max = 0;
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
         min = digit < min ? digit : min;
         max = digit > max ? digit : max;
     }

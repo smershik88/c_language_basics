@@ -57,5 +57,7 @@ void print_prime_factors(uint32_t n)
     }
 
     if (n > 1)
+    {
         printf("%" PRIu32, n);
+    }
 }

@@ -31,10 +31,8 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    // NOLINTBEGIN(readability-magic-numbers)
     int array[] = {20, 19, 4, 3, 2, 1, 18, 17, 13, 12, 11, 16, 15, 14, 10, 9, 8, 7, 6, 5};
-    // NOLINTEND(readability-magic-numbers)
-    int size = sizeof array / sizeof array[0];
+    int size    = sizeof array / sizeof array[0];
     print_array(array, size);
     puts("");
     sort_even_odd(size, array);
