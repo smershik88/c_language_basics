@@ -34,7 +34,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%s", is_digits_sum_even(n) ? "YES" : "NO");
 
     return EXIT_SUCCESS;

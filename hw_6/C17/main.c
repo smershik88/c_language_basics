@@ -23,6 +23,8 @@ YES
 NO
 */
 
+#define DEC_BASE 10
+
 bool is_happy_number(uint32_t n);
 
 int main(int argc, char *argv[])
@@ -32,7 +34,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%s", is_happy_number(n) ? "YES" : "NO");
 
     return EXIT_SUCCESS;
@@ -44,8 +50,8 @@ bool is_happy_number(uint32_t n)
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
 
         s += digit;
         p *= digit;

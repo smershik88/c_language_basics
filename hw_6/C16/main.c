@@ -33,7 +33,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%s", is_prime(n) ? "YES" : "NO");
 
     return EXIT_SUCCESS;
@@ -46,7 +50,9 @@ bool is_prime(uint32_t n)
     for (uint32_t i = 2; i <= sqrt(n); i++)
     {
         if (n % i)
+        {
             continue;
+        }
 
         prime_flag = false;
         break;
