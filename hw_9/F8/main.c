@@ -49,13 +49,17 @@ size_t read_array_while_not_zero(uint32_t array[], size_t size)
     size_t count = 0;
 
     if (!array || !size)
+    {
         return count;
+    }
 
     uint32_t number = 0;
     while (scanf("%" SCNu32, &number) == 1)
     {
         if (number == 0 || count == size)
+        {
             break;
+        }
 
         array[count++] = number;
     }
@@ -68,12 +72,16 @@ uint32_t get_missing_number(const uint32_t array[], size_t size)
     uint32_t missing_number = 0;
 
     if (!array || size < 2)
+    {
         return missing_number;
+    }
 
     const size_t buffer_size = sizeof *array * size;
     uint32_t    *buffer      = malloc(buffer_size);
     if (!buffer)
+    {
         return missing_number;
+    }
     memcpy(buffer, array, buffer_size);
 
     for (size_t i = 1; i < size; i++)

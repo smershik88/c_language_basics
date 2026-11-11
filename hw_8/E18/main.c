@@ -47,12 +47,16 @@ int main(int argc, char *argv[])
     uint16_t n = 0;
 
     if (scanf("%" SCNu16, &n) != 1 || n < MIN || n > MAX)
+    {
         return EXIT_FAILURE;
+    }
 
     for (size_t i = START; i <= END; i++)
+    {
         printf("%zu"
                " %zu\n",
                i, n / i);
+    }
 
     return EXIT_SUCCESS;
 }

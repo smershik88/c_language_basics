@@ -39,7 +39,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     sort_halfs_asc_desc_array(array, SIZE);
     print_array(array, SIZE);
@@ -50,12 +52,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -64,10 +70,14 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 int cmp_int32_by_asc(const void *pa, const void *pb)
@@ -87,7 +97,9 @@ int cmp_int32_by_desc(const void *pa, const void *pb)
 void sort_halfs_asc_desc_array(int32_t *array, size_t size)
 {
     if (!array || !size)
+    {
         return;
+    }
 
     int32_t *first_half_start = array, *second_half_start = array + SIZE / 2;
     size_t   fisrt_half_size = SIZE / 2, second_half_size = SIZE / 2 + SIZE % 2,

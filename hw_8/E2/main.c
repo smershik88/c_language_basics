@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     printf("%" PRId32 "\n", min_array(array, SIZE));
 
@@ -45,12 +47,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -61,12 +67,16 @@ int32_t min_array(const int32_t *array, size_t size)
     int32_t min = INT32_MAX;
 
     if (!array || !size)
+    {
         return min;
+    }
 
     for (size_t i = 0; i < size; i++)
     {
         if (array[i] < min)
+        {
             min = array[i];
+        }
     }
 
     return min;

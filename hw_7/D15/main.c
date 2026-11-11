@@ -36,10 +36,15 @@ int32_t max_find(int32_t max)
 
     int32_t n = 0;
 
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (n == 0)
+    {
         return max;
+    }
 
     if (n > max)
     {

@@ -39,7 +39,9 @@ int main(int argc, char *argv[])
     do
     {
         if (scanf("%" SCNd32, &n) != 1 || n == 0)
+        {
             break;
+        }
 
         int32_t result = calc_func(n);
         // printf("%" PRId32 "\n", result);
@@ -55,9 +57,15 @@ int main(int argc, char *argv[])
 int32_t calc_func(int32_t x)
 {
     if (x >= -2 && x < 2)
+    {
         return x * x;
+    }
     else if (x >= 2)
+    {
         return x * x + 4 * x + 5;
+    }
     else // x < -2
+    {
         return 4;
+    }
 }

@@ -33,7 +33,10 @@ int main(int argc, char *argv[])
     int8_t  n = 0;
     uint8_t p = 0;
 
-    scanf("%" SCNd8 " %" SCNu8, &n, &p);
+    if (scanf("%" SCNd8 " %" SCNu8, &n, &p) != 2)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRId64, recurs_power(n, p));
 
@@ -43,10 +46,14 @@ int main(int argc, char *argv[])
 int64_t recurs_power(int8_t n, uint8_t p)
 {
     if (p == 0)
+    {
         return 1;
+    }
 
     if (p == 1)
+    {
         return n;
+    }
 
     return n * recurs_power(n, p - 1);
 }

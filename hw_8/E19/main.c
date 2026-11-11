@@ -17,6 +17,8 @@ Output
 5 4 4 1 2
 */
 
+#define DEC_BASE 10
+
 void   print_array(const uint8_t *array, size_t n);
 size_t get_digits_array(uint32_t n, uint8_t **dest_array);
 
@@ -29,7 +31,9 @@ int main(int argc, char *argv[])
     uint8_t *digits_array = NULL;
 
     if (scanf("%" SCNu32, &n) != 1)
+    {
         return EXIT_FAILURE;
+    }
 
     size_t count = get_digits_array(n, &digits_array);
     print_array(digits_array, count);
@@ -41,32 +45,44 @@ int main(int argc, char *argv[])
 void print_array(const uint8_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRIu8 " ", array[i]);
+    }
 }
 
 size_t get_digits_array(uint32_t n, uint8_t **dest_array)
 {
     if (dest_array == NULL || *dest_array != NULL)
+    {
         return 0;
+    }
 
     size_t digits_count = 0;
-    for (uint32_t n_tmp = n; n_tmp != 0; n_tmp /= 10)
+    for (uint32_t n_tmp = n; n_tmp != 0; n_tmp /= DEC_BASE)
+    {
         digits_count++;
+    }
 
     if (digits_count == 0)
+    {
         return 0;
+    }
 
     *dest_array = malloc(digits_count * sizeof(uint8_t));
     if (*dest_array == NULL)
+    {
         return 0;
+    }
 
     for (size_t i = 0; n != 0;)
     {
-        const uint8_t digit = (uint8_t)(n % 10);
-        n /= 10;
+        const uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n /= DEC_BASE;
         (*dest_array)[(digits_count - 1) - i++] = digit;
     }
 

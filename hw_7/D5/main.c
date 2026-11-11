@@ -22,6 +22,8 @@ Output
 1000
 */
 
+#define DEC_BASE 10
+
 uint64_t dec_to_bin(uint32_t n);
 
 int main(int argc, char *argv[])
@@ -31,7 +33,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%" PRIu64, dec_to_bin(n));
 
     return EXIT_SUCCESS;
@@ -40,7 +46,9 @@ int main(int argc, char *argv[])
 uint64_t dec_to_bin(uint32_t n)
 {
     if (n < 2)
+    {
         return n;
+    }
 
-    return dec_to_bin(n / 2) * 10 + n % 2;
+    return dec_to_bin(n / 2) * DEC_BASE + n % 2;
 }

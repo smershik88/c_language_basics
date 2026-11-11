@@ -32,10 +32,15 @@ int main(int argc, char *argv[])
 
     int32_t a = 0, b = 0;
 
-    scanf("%" SCNd32 " %" SCNd32, &a, &b);
+    if (scanf("%" SCNd32 " %" SCNd32, &a, &b) != 2)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (a < 0 || b < 0)
+    {
         return EXIT_FAILURE;
+    }
 
     printf("%" PRId32 "\n", middle(a, b));
 

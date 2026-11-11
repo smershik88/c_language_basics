@@ -22,7 +22,8 @@ Output
 100 51 62 73 4 555 16 1007 118 109
 */
 
-#define SIZE 10U
+#define DEC_BASE 10
+#define SIZE     10U
 
 bool read_array(int32_t *array, size_t n);
 void print_array(const int32_t *array, size_t n);
@@ -36,7 +37,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     qsort(array, SIZE, sizeof array[0], cmp_int32_by_last_digit);
     print_array(array, SIZE);
@@ -47,12 +50,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -61,21 +68,27 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 int cmp_int32_by_last_digit(const void *pa, const void *pb)
 {
     int32_t a = *(const int32_t *)pa, b = *(const int32_t *)pb;
 
-    uint8_t last_digit_a = (uint8_t)(a < 0 ? -a % 10 : a % 10),
-            last_digit_b = (uint8_t)(b < 0 ? -b % 10 : b % 10);
+    uint8_t last_digit_a = (uint8_t)(a < 0 ? -a % DEC_BASE : a % DEC_BASE),
+            last_digit_b = (uint8_t)(b < 0 ? -b % DEC_BASE : b % DEC_BASE);
 
     if (last_digit_a != last_digit_b)
+    {
         return (last_digit_a > last_digit_b) - (last_digit_a < last_digit_b);
+    }
 
     return (a > b) - (a < b);
 }

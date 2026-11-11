@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -32,7 +31,10 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     print_prime_factors(n);
 
@@ -41,13 +43,11 @@ int main(int argc, char *argv[])
 
 void print_prime_factors(uint32_t n)
 {
-    uint32_t lim = (uint32_t)sqrt(n);
-
-    for (uint32_t i = 2; i <= lim;)
+    for (uint32_t i = 2; i <= n / i;)
     {
         if (n % i == 0)
         {
-            printf("%" PRId32 " ", i);
+            printf("%" PRIu32 " ", i);
             n /= i;
         }
         else

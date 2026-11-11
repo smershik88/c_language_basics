@@ -38,7 +38,9 @@ int main(int argc, char *argv[])
     {
         ch = (char)getchar();
         if (is_digit(ch))
+        {
             digits_sum += digit_to_num(ch);
+        }
     } while (ch != '.');
 
     printf("%" PRIu32, digits_sum);

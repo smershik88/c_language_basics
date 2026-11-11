@@ -41,7 +41,9 @@ uint32_t acounter(void)
     char c = (char)getchar();
 
     if (c == '.')
+    {
         return 0;
+    }
 
     return (c == 'a' ? 1 : 0) + acounter();
 }

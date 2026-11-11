@@ -22,6 +22,8 @@ Output
 5 4 3 2 1
 */
 
+#define DEC_BASE 10
+
 void print_digits(uint32_t n);
 
 int main(int argc, char *argv[])
@@ -31,7 +33,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     print_digits(n);
 
     return EXIT_SUCCESS;
@@ -39,12 +45,12 @@ int main(int argc, char *argv[])
 
 void print_digits(uint32_t n)
 {
-    if (n < 10)
+    if (n < DEC_BASE)
     {
         printf("%" PRIu32 " ", n);
         return;
     }
 
-    print_digits(n / 10);
-    printf("%" PRIu32 " ", n % 10);
+    print_digits(n / DEC_BASE);
+    printf("%" PRIu32 " ", n % DEC_BASE);
 }

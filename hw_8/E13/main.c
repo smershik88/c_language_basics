@@ -19,7 +19,8 @@ Output
 105 203 1 1000
 */
 
-#define SIZE 10U
+#define DEC_BASE 10
+#define SIZE     10U
 
 bool   read_array(int32_t *array, size_t n);
 void   print_array(const int32_t *array, size_t n);
@@ -36,7 +37,9 @@ int main(int argc, char *argv[])
     int32_t filtered_array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     const size_t n = filter_array(array, SIZE, filtered_array, SIZE, is_zero_tens);
     print_array(filtered_array, n);
@@ -47,12 +50,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -61,13 +68,17 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
-bool is_zero_tens(int32_t n) { return (n / 10) % 10 == 0; }
+bool is_zero_tens(int32_t n) { return (n / DEC_BASE) % DEC_BASE == 0; }
 
 size_t filter_array(const int32_t *src_array, size_t src_array_size, int32_t *dest_array,
                     size_t dest_array_size, bool (*predicate)(int32_t))
@@ -83,7 +94,9 @@ size_t filter_array(const int32_t *src_array, size_t src_array_size, int32_t *de
     for (size_t i = 0; i < src_array_size; i++)
     {
         if (predicate(src_array[i]))
+        {
             dest_array[j++] = src_array[i];
+        }
     }
 
     return j;

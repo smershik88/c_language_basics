@@ -23,6 +23,8 @@
 25
 */
 
+#define MAX 1000
+
 uint32_t abs_32(int32_t n);
 int32_t  power(int32_t n, int8_t p);
 
@@ -34,10 +36,15 @@ int main(int argc, char *argv[])
     int32_t n = 0;
     int8_t  p = 0;
 
-    scanf("%" SCNd32 " %" SCNd8, &n, &p);
-
-    if (abs_32(n) > 100 || p < 0)
+    if (scanf("%" SCNd32 " %" SCNd8, &n, &p) != 2)
+    {
         return EXIT_FAILURE;
+    }
+
+    if (abs_32(n) > MAX || p < 0)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRId32 "\n", power(n, p));
 
@@ -51,7 +58,9 @@ int32_t power(int32_t n, int8_t p)
     int32_t result = 1;
 
     if (p == 0)
+    {
         return result;
+    }
 
     while (p--)
     {

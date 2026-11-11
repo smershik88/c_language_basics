@@ -39,7 +39,9 @@ int main(int argc, char *argv[])
     int32_t neg_array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     const size_t n_pos = filter_array(array, SIZE, pos_array, SIZE, is_pos);
     const size_t n_neg = filter_array(array, SIZE, neg_array, SIZE, is_neg);
@@ -53,12 +55,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -67,10 +73,14 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 bool is_neg(int32_t n) { return n < 0; }
@@ -91,7 +101,9 @@ size_t filter_array(const int32_t *src_array, size_t src_array_size, int32_t *de
     for (size_t i = 0; i < src_array_size; i++)
     {
         if (predicate(src_array[i]))
+        {
             dest_array[j++] = src_array[i];
+        }
     }
 
     return j;

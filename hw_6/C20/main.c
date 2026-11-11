@@ -38,7 +38,9 @@ int main(int argc, char *argv[])
         else if (ch == ')')
         {
             if (--balance < 0)
+            {
                 break;
+            }
         }
         else if (ch == '.')
         {

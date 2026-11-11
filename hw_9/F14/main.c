@@ -21,6 +21,9 @@ Output
 15
 */
 
+#define FROM 4
+#define TO   6
+
 int sum_between_ab(int from, int to, int size, int a[]);
 
 int main(int argc, char *argv[])
@@ -31,7 +34,7 @@ int main(int argc, char *argv[])
     int    array[]    = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     size_t array_size = sizeof array / sizeof *array;
 
-    printf("%d", sum_between_ab(4, 6, (int)array_size, array));
+    printf("%d", sum_between_ab(FROM, TO, (int)array_size, array));
 
     return EXIT_SUCCESS;
 }

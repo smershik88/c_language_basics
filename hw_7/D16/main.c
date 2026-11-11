@@ -32,7 +32,10 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     puts(is2pow(n) ? "YES" : "NO");
 
@@ -42,10 +45,14 @@ int main(int argc, char *argv[])
 bool is2pow(uint32_t n)
 {
     if (n == 0)
+    {
         return false;
+    }
 
     if (n == 1)
+    {
         return true;
+    }
 
     return (n % 2 == 0) && is2pow(n >> 1U);
 }

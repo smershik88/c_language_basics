@@ -34,7 +34,9 @@ void print_reversed_input(void)
 {
     char c = (char)getchar();
     if (c == '.')
+    {
         return;
+    }
 
     print_reversed_input();
 

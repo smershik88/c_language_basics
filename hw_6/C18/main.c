@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
     {
         ch = (char)getchar();
         if (is_digit(ch))
+        {
             char_counter++;
+        }
     } while (ch != '.');
 
     printf("%" PRIu32, char_counter);

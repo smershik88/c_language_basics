@@ -37,16 +37,22 @@ int main(int argc, char *argv[])
 void print_array(int a[], int size)
 {
     if (!a || size < 1)
+    {
         return;
+    }
 
     for (int i = 0; i < size; i++)
+    {
         printf("%d ", a[i]);
+    }
 }
 
 void sort_array(int size, int a[])
 {
     if (!a || size < 2)
+    {
         return;
+    }
 
     for (int i = 1; i < size; i++)
     {

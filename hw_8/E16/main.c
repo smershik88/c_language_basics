@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     printf("%" PRId32, most_frequent_array(array, SIZE));
 
@@ -45,12 +47,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -59,10 +65,14 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 int cmp_int32_by_asc(const void *pa, const void *pb)
@@ -75,11 +85,15 @@ int cmp_int32_by_asc(const void *pa, const void *pb)
 int32_t most_frequent_array(const int32_t *array, size_t size)
 {
     if (!array || !size)
+    {
         return INT32_MIN;
+    }
 
     int32_t *sorted_array = malloc(size * sizeof array[0]);
     if (!sorted_array)
+    {
         return INT32_MIN;
+    }
 
     memcpy(sorted_array, array, size * sizeof array[0]);
     qsort(sorted_array, size, sizeof array[0], cmp_int32_by_asc);

@@ -26,7 +26,10 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRIu64, sum_uint32(n));
 
@@ -37,6 +40,8 @@ uint64_t sum_uint32(uint32_t x)
 {
     uint64_t result = 0;
     for (uint32_t i = 1; i <= x; i++)
+    {
         result += i;
+    }
     return result;
 }

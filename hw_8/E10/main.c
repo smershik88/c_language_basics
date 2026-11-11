@@ -38,7 +38,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     ror_array(array, SIZE, ROR_N);
     print_array(array, SIZE);
@@ -49,12 +51,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -63,16 +69,22 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 void reverse_array(int32_t *array, size_t size)
 {
     if (!array || !size)
+    {
         return;
+    }
 
     for (int32_t *left = array, *right = array + size - 1; left < right;)
     {
@@ -85,11 +97,15 @@ void reverse_array(int32_t *array, size_t size)
 void ror_array(int32_t *array, size_t size, size_t n)
 {
     if (!array || !size)
+    {
         return;
+    }
 
     n %= size;
     if (n == 0)
+    {
         return;
+    }
 
     reverse_array(array, size);
     reverse_array(array, n);

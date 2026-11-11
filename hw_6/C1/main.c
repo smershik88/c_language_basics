@@ -27,7 +27,10 @@ int main(int argc, char *argv[])
 
     int32_t n = 0;
 
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
     printf("%" PRIu32 "\n", abs_32(n));
 
     return EXIT_SUCCESS;

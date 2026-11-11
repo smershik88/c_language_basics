@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,7 +29,7 @@ int main(int argc, char *argv[])
     (void)argv;
 
     uint32_t n          = 0;
-    uint32_t reversed_n = 0;
+    uint64_t reversed_n = 0;
 
     // printf("Input an integer >= 0: ");
     if (scanf("%" SCNu32, &n) != 1)
@@ -44,16 +43,17 @@ int main(int argc, char *argv[])
         return EXIT_SUCCESS;
     }
 
-    int8_t number_of_digits = (int8_t)log10(n) + 1;
-
-    for (int8_t i = number_of_digits - 1; i >= 0; i--)
+    do
     {
-        uint8_t digit = (uint8_t)(n % DEC_BASE);
-        reversed_n += (uint32_t)(digit * pow(DEC_BASE, i));
-        n /= DEC_BASE;
-    }
+        uint32_t digit = n % DEC_BASE;
 
-    printf("%" PRIu32 "\n", reversed_n);
+        reversed_n = reversed_n * DEC_BASE + digit;
+
+        n /= DEC_BASE;
+
+    } while (n != 0);
+
+    printf("%" PRIu64 "\n", reversed_n);
 
     return EXIT_SUCCESS;
 }

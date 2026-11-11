@@ -37,7 +37,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     puts(is_prime(n, 2) ? "YES" : "NO");
 
     return EXIT_SUCCESS;
@@ -46,11 +50,17 @@ int main(int argc, char *argv[])
 bool is_prime(uint32_t n, uint32_t divisor)
 {
     if (n <= 1)
+    {
         return false;
+    }
     if (divisor == n)
+    {
         return true;
+    }
     if (divisor * divisor == n)
+    {
         return n % divisor;
+    }
 
     return n % divisor && is_prime(n, divisor + 1);
 }

@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
     int32_t array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     printf("%.2f\n", avg_array(array, SIZE));
 

@@ -30,7 +30,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%" PRIu8, number_of_bin_1(n));
 
     return EXIT_SUCCESS;
@@ -39,7 +43,9 @@ int main(int argc, char *argv[])
 uint8_t number_of_bin_1(uint32_t n)
 {
     if (n < 2)
+    {
         return (uint8_t)n;
+    }
 
-    return (n & 1U) + number_of_bin_1(n >> 1);
+    return (n & 1U) + number_of_bin_1(n >> 1U);
 }

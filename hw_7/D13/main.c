@@ -30,7 +30,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     print_prime_factors(n, 2);
 
     return EXIT_SUCCESS;
@@ -39,7 +43,9 @@ int main(int argc, char *argv[])
 void print_prime_factors(uint32_t n, uint32_t divisor)
 {
     if (n <= 1)
+    {
         return;
+    }
 
     if (divisor * divisor > n)
     {

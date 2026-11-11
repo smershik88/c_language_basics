@@ -34,13 +34,20 @@ void print_odd_input(void)
 {
     int32_t n = 0;
 
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n))
+    {
+        return;
+    }
 
     if (n == 0)
+    {
         return;
+    }
 
     if (n % 2)
+    {
         printf("%" PRId32 " ", n);
+    }
 
     print_odd_input();
 }

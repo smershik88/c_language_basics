@@ -17,6 +17,9 @@ Output
 3
 */
 
+#define FROM 4
+#define TO   6
+
 int count_between(int from, int to, int size, int a[]);
 
 int main(int argc, char *argv[])
@@ -27,7 +30,7 @@ int main(int argc, char *argv[])
     int    array[]    = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     size_t array_size = sizeof array / sizeof *array;
 
-    printf("%d", count_between(4, 6, (int)array_size, array));
+    printf("%d", count_between(FROM, TO, (int)array_size, array));
 
     return EXIT_SUCCESS;
 }
@@ -37,7 +40,9 @@ int count_between(int from, int to, int size, int a[])
     int count = 0;
 
     if (!a || size <= 0)
+    {
         return 0;
+    }
 
     if (from > to)
     {
@@ -49,7 +54,9 @@ int count_between(int from, int to, int size, int a[])
     for (int i = 0; i < size; i++)
     {
         if (a[i] >= from && a[i] <= to)
+        {
             count++;
+        }
     }
 
     return count;

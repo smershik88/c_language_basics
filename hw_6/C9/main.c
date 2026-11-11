@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX 20
+
 /*
 Факториал
 Составить функцию вычисления N!. Использовать ее при вычислении факториала int factorial(int n)
@@ -26,10 +28,15 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
-
-    if (n > 20)
+    if (scanf("%" SCNu32, &n) != 1)
+    {
         return EXIT_FAILURE;
+    }
+
+    if (n > MAX)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRId64, factorial(n));
 
@@ -39,7 +46,11 @@ int main(int argc, char *argv[])
 uint64_t factorial(uint32_t n)
 {
     if (n <= 1)
+    {
         return 1;
+    }
     else
+    {
         return n * factorial(n - 1);
+    }
 }

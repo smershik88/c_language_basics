@@ -22,6 +22,8 @@ YES
 NO
 */
 
+#define DEC_BASE 10
+
 int main(int argc, char *argv[])
 {
     (void)argc;
@@ -31,14 +33,17 @@ int main(int argc, char *argv[])
     bool    odd_flag = false;
 
     // printf("Input an integer: ");
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     n = abs(n);
 
     while (n)
     {
-        uint8_t digit = (uint8_t)(n % 10);
-        n             = n / 10;
+        uint8_t digit = (uint8_t)(n % DEC_BASE);
+        n             = n / DEC_BASE;
         if (digit & 1U)
         {
             odd_flag = true;

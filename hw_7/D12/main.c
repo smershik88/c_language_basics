@@ -27,7 +27,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     print_monotonic_seq(1, n);
 
     return EXIT_SUCCESS;
@@ -36,7 +40,9 @@ int main(int argc, char *argv[])
 uint32_t print_monotonic_seq(uint32_t k, uint32_t n)
 {
     if (n <= 0)
+    {
         return 0;
+    }
 
     uint32_t quantity_to_print = k < n ? k : n;
 

@@ -26,6 +26,10 @@ Output
 102
 */
 
+#define TO_BASE_MIN 2
+#define TO_BASE_MAX 9
+#define DEC_BASE    10
+
 uint64_t convert_n_to_base_p(uint32_t n, uint8_t p);
 
 int main(int argc, char *argv[])
@@ -36,10 +40,15 @@ int main(int argc, char *argv[])
     uint32_t n = 0;
     uint8_t  p = 0;
 
-    scanf("%" SCNu32 " %" SCNu8, &n, &p);
-
-    if (p < 2 || p > 9)
+    if (scanf("%" SCNu32 " %" SCNu8, &n, &p) != 2)
+    {
         return EXIT_FAILURE;
+    }
+
+    if (p < TO_BASE_MIN || p > TO_BASE_MAX)
+    {
+        return EXIT_FAILURE;
+    }
 
     printf("%" PRIu64, convert_n_to_base_p(n, p));
 
@@ -55,7 +64,7 @@ uint64_t convert_n_to_base_p(uint32_t n, uint8_t p)
         uint8_t digit = (uint8_t)(n % p);
         n /= p;
         number += digit * position;
-        position *= 10;
+        position *= DEC_BASE;
     }
     return number;
 }

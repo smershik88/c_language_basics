@@ -41,14 +41,18 @@ int main(int argc, char *argv[])
 int is_two_same(int size, int a[])
 {
     if (!a || size < 2)
+    {
         return 0;
+    }
 
     for (int i = 0; i < size - 1; i++)
     {
         for (int j = i + 1; j < size; j++)
         {
             if (a[i] == a[j])
+            {
                 return 1;
+            }
         }
     }
 

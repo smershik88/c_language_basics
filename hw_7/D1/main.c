@@ -26,7 +26,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     print_to_n(n);
 
     return EXIT_SUCCESS;
@@ -35,7 +39,9 @@ int main(int argc, char *argv[])
 void print_to_n(uint32_t n)
 {
     if (n == 0)
+    {
         return;
+    }
 
     print_to_n(n - 1);
 

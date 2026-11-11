@@ -27,7 +27,10 @@ int main(int argc, char *argv[])
 
     uint32_t a = 0, b = 0;
 
-    scanf("%" SCNu32 " %" SCNu32, &a, &b);
+    if (scanf("%" SCNu32 " %" SCNu32, &a, &b) != 2)
+    {
+        return EXIT_FAILURE;
+    }
     printf("%" PRIu32, nod(a, b));
 
     return EXIT_SUCCESS;

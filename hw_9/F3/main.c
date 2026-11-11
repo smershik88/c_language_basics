@@ -31,7 +31,9 @@ int main(int argc, char *argv[])
     uint32_t digits_count[DEC_DIGITS_NUMBER] = {0};
 
     if (!fgets(str, MAX_LENGTH, stdin))
+    {
         return EXIT_FAILURE;
+    }
 
     get_number_of_dec_digits(str, digits_count);
     print_number_of_dec_digits(digits_count);
@@ -42,23 +44,31 @@ int main(int argc, char *argv[])
 void get_number_of_dec_digits(const char *str, uint32_t digits_count[])
 {
     if (!str || !digits_count)
+    {
         return;
+    }
 
     for (; *str; str++)
     {
         if (isdigit((unsigned char)*str))
+        {
             digits_count[*str - '0']++;
+        }
     }
 }
 
 void print_number_of_dec_digits(const uint32_t digits_count[])
 {
     if (!digits_count)
+    {
         return;
+    }
 
     for (uint8_t i = 0; i < DEC_DIGITS_NUMBER; i++)
     {
         if (digits_count[i])
+        {
             printf("%" PRIu8 " %" PRIu32 "\n", i, digits_count[i]);
+        }
     }
 }

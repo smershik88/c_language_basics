@@ -25,6 +25,8 @@ Output
 a3b4a2
 */
 
+#define BUF_SIZE 2001
+
 size_t compress_input(char *buffer, size_t size);
 
 int main(int argc, char *argv[])
@@ -32,10 +34,12 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    char buffer[2001] = {0};
+    char buffer[BUF_SIZE] = {0};
 
     if (compress_input(buffer, sizeof buffer))
+    {
         printf("%s", buffer);
+    }
 
     return EXIT_SUCCESS;
 }
@@ -43,7 +47,9 @@ int main(int argc, char *argv[])
 size_t compress_input(char *buffer, size_t size)
 {
     if (!buffer || !size)
+    {
         return 0;
+    }
 
     size_t result_len = 0;
 
@@ -64,7 +70,9 @@ size_t compress_input(char *buffer, size_t size)
             int j = snprintf(buffer, bytes_available, "%c%zu", prev_c, len);
 
             if (j < 0 || (size_t)j >= bytes_available)
+            {
                 return 0;
+            }
 
             result_len += (size_t)j;
             buffer += j;

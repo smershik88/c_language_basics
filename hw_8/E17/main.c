@@ -36,7 +36,9 @@ int main(int argc, char *argv[])
     int32_t unique_array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     size_t unique_array_size = copy_unique_array(array, SIZE, unique_array, SIZE);
     print_array(unique_array, unique_array_size);
@@ -47,12 +49,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -61,23 +67,31 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 size_t count_array(const int32_t *array, size_t size, int32_t n)
 {
     if (!array || !size)
+    {
         return 0;
+    }
 
     size_t count = 0;
 
     for (size_t i = 0; i < size; i++)
     {
         if (array[i] == n)
+        {
             count++;
+        }
     }
 
     return count;
@@ -97,7 +111,9 @@ size_t copy_unique_array(const int32_t *src_array, size_t src_array_size, int32_
     for (size_t i = 0; i < src_array_size; i++)
     {
         if (count_array(src_array, src_array_size, src_array[i]) == 1)
+        {
             dest_array[count++] = src_array[i];
+        }
     }
 
     return count;

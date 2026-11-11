@@ -34,7 +34,9 @@ int main(int argc, char *argv[])
 void swap_negmax_last(int size, int a[])
 {
     if (!a || size <= 0)
+    {
         return;
+    }
 
     int max_neg_index = -1;
 
@@ -49,7 +51,9 @@ void swap_negmax_last(int size, int a[])
             }
 
             if (a[i] > a[max_neg_index])
+            {
                 max_neg_index = i;
+            }
         }
     }
 
@@ -64,8 +68,12 @@ void swap_negmax_last(int size, int a[])
 void print_array(int size, int a[])
 {
     if (!a || !size)
+    {
         return;
+    }
 
     for (int i = 0; i < size; i++)
+    {
         printf("%d ", a[i]);
+    }
 }

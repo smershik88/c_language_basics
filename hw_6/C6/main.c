@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -28,32 +27,30 @@
 134217728
 */
 
-long double geometry_progression_n(double b1, uint32_t n, double q);
+#define MIN_CELL 1U
+#define MAX_CELL 64U
 
-int main(int argc, char *argv[])
+uint64_t grains_on_cell(uint32_t n);
+
+int main(void)
 {
-    (void)argc;
-    (void)argv;
+    uint32_t n = 0;
 
-    uint8_t n = 0;
-
-    scanf("%" SCNu8, &n);
-
-    if (n < 1 || n > 64)
+    if (scanf("%" SCNu32, &n) != 1)
+    {
         return EXIT_FAILURE;
+    }
 
-    printf("%llu", (uint64_t)geometry_progression_n(1, n, 2));
+    if (n < MIN_CELL || n > MAX_CELL)
+    {
+        return EXIT_FAILURE;
+    }
+
+    uint64_t result = grains_on_cell(n);
+
+    printf("%" PRIu64 "\n", result);
 
     return EXIT_SUCCESS;
 }
 
-long double geometry_progression_n(double b1, uint32_t n, double q)
-{
-    long double result = 0;
-
-    if (n == 0)
-        return result;
-
-    result = b1 * powl(q, n - 1);
-    return result;
-}
+uint64_t grains_on_cell(uint32_t n) { return ((uint64_t)1) << (n - 1U); }

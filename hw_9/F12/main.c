@@ -39,16 +39,22 @@ int main(int argc, char *argv[])
 void change_max_min(int size, int a[])
 {
     if (!a || !size)
+    {
         return;
+    }
 
     int min_idx = 0, max_idx = 0;
 
     for (int i = 1; i < size; i++)
     {
         if (a[i] < a[min_idx])
+        {
             min_idx = i;
+        }
         else if (a[i] > a[max_idx])
+        {
             max_idx = i;
+        }
     }
 
     int tmp    = a[min_idx];
@@ -59,8 +65,12 @@ void change_max_min(int size, int a[])
 void print_array(int a[], size_t size)
 {
     if (!a || !size)
+    {
         return;
+    }
 
     for (size_t i = 0; i < size; i++)
+    {
         printf("%d ", a[i]);
+    }
 }

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEC_BASE 10
+
 /*
 Сумма цифр
 Ввести целое число и найти сумму его цифр.
@@ -30,15 +32,20 @@ int main(int argc, char *argv[])
     uint8_t digits_sum = 0;
 
     // printf("Input an integer >= 0: ");
-    scanf("%" SCNd32, &n);
+    if (scanf("%" SCNd32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
 
     if (n < 0)
+    {
         return EXIT_FAILURE;
+    }
 
     while (n)
     {
-        digits_sum += (uint8_t)(n % 10);
-        n = n / 10;
+        digits_sum += (uint8_t)(n % DEC_BASE);
+        n = n / DEC_BASE;
     }
 
     printf("%" PRIu8 "\n", digits_sum);

@@ -33,7 +33,9 @@ int main(int argc, char *argv[])
     int32_t array[ARRAY_SIZE] = {0};
 
     if (!read_array(array, ARRAY_SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     print_min_sum_pair(array, ARRAY_SIZE);
 
@@ -43,12 +45,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -57,7 +63,9 @@ bool read_array(int32_t *array, size_t n)
 void print_min_sum_pair(const int32_t array[], size_t size)
 {
     if (!array || size < 2)
+    {
         return;
+    }
 
     size_t idx_1 = 0, idx_2 = 1;
 
@@ -66,9 +74,13 @@ void print_min_sum_pair(const int32_t array[], size_t size)
         if (array[i] < array[idx_1] || array[i] < array[idx_2])
         {
             if (array[idx_1] >= array[idx_2])
+            {
                 idx_1 = i;
+            }
             else
+            {
                 idx_2 = i;
+            }
         }
 
         if (idx_1 > idx_2)

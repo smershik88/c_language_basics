@@ -53,21 +53,29 @@ int main(int argc, char *argv[])
 void print_array(int a[], int size)
 {
     if (!a || size < 1)
+    {
         return;
+    }
 
     for (int a_index = 0; a_index < size; a_index++)
+    {
         printf("%d ", a[a_index]);
+    }
 }
 
 int compression(int a[], int b[], int N)
 {
     if (!a || !b || N <= 0)
+    {
         return 0;
+    }
 
     int b_index = 0;
 
     if (a[0] == 1)
+    {
         b[b_index++] = 0;
+    }
 
     for (int a_index = 0; a_index < N;)
     {

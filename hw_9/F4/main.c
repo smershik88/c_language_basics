@@ -23,6 +23,8 @@ Output
 7 2
 */
 
+#define DEC_DIGITS_NUMBER 10
+
 void get_number_of_dec_digits(const char *str, uint32_t digits_count[]);
 void print_number_of_dec_digits(const uint32_t digits_count[]);
 void print_digit(char s[]);
@@ -42,19 +44,25 @@ int main(int argc, char *argv[])
 void print_digit(char s[])
 {
     if (!s)
+    {
         return;
+    }
 
-    unsigned int digits_count[10] = {0};
+    unsigned int digits_count[DEC_DIGITS_NUMBER] = {0};
 
     for (; *s; s++)
     {
         if (isdigit((unsigned char)*s))
+        {
             digits_count[*s - '0']++;
+        }
     }
 
-    for (unsigned char i = 0; i < 10; i++)
+    for (unsigned char i = 0; i < DEC_DIGITS_NUMBER; i++)
     {
         if (digits_count[i])
+        {
             printf("%d %u\n", i, digits_count[i]);
+        }
     }
 }

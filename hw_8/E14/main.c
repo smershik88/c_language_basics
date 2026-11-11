@@ -45,7 +45,9 @@ int main(int argc, char *argv[])
     int32_t result_array[SIZE] = {0};
 
     if (!read_array(array, SIZE))
+    {
         return EXIT_FAILURE;
+    }
 
     size_t result_size = copy_dups_array(array, SIZE, result_array, SIZE);
 
@@ -57,12 +59,16 @@ int main(int argc, char *argv[])
 bool read_array(int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < n; i++)
     {
         if (scanf("%" SCNd32, array + i) != 1)
+        {
             return false;
+        }
     }
 
     return true;
@@ -71,10 +77,14 @@ bool read_array(int32_t *array, size_t n)
 void print_array(const int32_t *array, size_t n)
 {
     if (!array || !n)
+    {
         return;
+    }
 
     for (size_t i = 0; i < n; i++)
+    {
         printf("%" PRId32 " ", array[i]);
+    }
 }
 
 int cmp_int32_by_asc(const void *pa, const void *pb)
@@ -95,7 +105,9 @@ size_t copy_dups_array(const int32_t *src_array, size_t src_array_size, int32_t 
 
     int32_t *buffer = malloc(src_array_size * sizeof src_array[0]);
     if (!buffer)
+    {
         return 0;
+    }
 
     memcpy(buffer, src_array, src_array_size * sizeof src_array[0]);
     qsort(buffer, src_array_size, sizeof src_array[0], cmp_int32_by_asc);
@@ -115,7 +127,9 @@ size_t copy_dups_array(const int32_t *src_array, size_t src_array_size, int32_t 
         const size_t group_length = current_index - start_group_index;
 
         if (group_length > 1)
+        {
             dest_array[count++] = buffer[start_group_index];
+        }
 
         start_group_index = current_index;
     }

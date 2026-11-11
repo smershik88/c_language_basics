@@ -22,14 +22,16 @@ Output
 ABC, DEF
 */
 
-char toUpperCase(char a);
+#define BIT_NUMBER 5U
+
+int toUpperCase(int a);
 
 int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    for (char a = (char)getchar(); a != '.'; a = (char)getchar())
+    for (int a = getchar(); a != EOF && a != '.'; a = getchar())
     {
         putchar(toUpperCase(a));
     }
@@ -37,10 +39,14 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-char toUpperCase(char a)
+int toUpperCase(int a)
 {
     if (a >= 'a' && a <= 'z')
-        return a & (char)~(1U << 5);
+    {
+        return (int)((unsigned int)a & ~(1U << BIT_NUMBER));
+    }
     else
+    {
         return a;
+    }
 }

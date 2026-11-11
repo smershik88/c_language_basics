@@ -22,6 +22,8 @@ Output
 1
 */
 
+#define DEC_BASE 10
+
 uint32_t sum_digits(uint32_t n);
 
 int main(int argc, char *argv[])
@@ -31,7 +33,11 @@ int main(int argc, char *argv[])
 
     uint32_t n = 0;
 
-    scanf("%" SCNu32, &n);
+    if (scanf("%" SCNu32, &n) != 1)
+    {
+        return EXIT_FAILURE;
+    }
+
     printf("%" PRIu32, sum_digits(n));
 
     return EXIT_SUCCESS;
@@ -39,8 +45,10 @@ int main(int argc, char *argv[])
 
 uint32_t sum_digits(uint32_t n)
 {
-    if (n < 10)
+    if (n < DEC_BASE)
+    {
         return n;
+    }
 
-    return sum_digits(n / 10) + n % 10;
+    return sum_digits(n / DEC_BASE) + n % DEC_BASE;
 }
