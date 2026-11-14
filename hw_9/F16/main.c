@@ -49,8 +49,6 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    printf("%s\n", square_coords);
-
     square_coords_t sc = string_to_square_coords(square_coords);
 
     printf("%s", is_white_square(sc.col, sc.row) ? "WHITE" : "BLACK");
@@ -70,19 +68,19 @@ square_coords_t string_to_square_coords(const char *s)
 
     if (s[0] >= 'a' && s[0] <= 'h')
     {
-        col = s[0] - 'a' + 1;
+        col = (unsigned int)(s[0] - 'a') + 1U;
     }
     else if (s[0] >= 'A' && s[0] <= 'H')
     {
-        col = s[0] - 'A' + 1;
+        col = (unsigned int)(s[0] - 'A') + 1U;
     }
 
     if (s[1] >= '1' && s[1] <= '8')
     {
-        row = s[1] - '1' + 1;
+        row = (unsigned int)(s[1] - '1') + 1U;
     }
 
-    return !col && !row ? (square_coords_t){0, 0} : (square_coords_t){col, row};
+    return !col || !row ? (square_coords_t){0, 0} : (square_coords_t){col, row};
 }
 
 bool is_white_square(unsigned col, unsigned row)
@@ -94,7 +92,7 @@ bool is_white_square(unsigned col, unsigned row)
         return result;
     }
 
-    if (((col * row) & 1U) == 0)
+    if ((col & 1U) ^ (row & 1U))
     {
         result = true;
     }
