@@ -1,6 +1,6 @@
 add_subdirectory(G1)
 add_subdirectory(G2)
-# add_subdirectory(G3)
+add_subdirectory(G3)
 # add_subdirectory(G4)
 # add_subdirectory(G5)
 # add_subdirectory(G6)
