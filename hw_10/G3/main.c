@@ -35,10 +35,10 @@ Output in output.txt
 
 bool open_file(FILE **fp, const char *mode, const char *fname);
 bool close_file(FILE **fp);
-bool read_line_from_file(FILE *fp, char *input_string_buffer, size_t string_buffer_size,
+bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_size,
                          size_t max_string_length);
-bool get_letter_indexes_str(const char *input_string_buffer, char letter,
-                            char *result_string_buffer, size_t result_string_buffer_size);
+bool get_letter_indexes_str(const char *string_buffer, char letter, char *result_string_buffer,
+                            size_t result_string_buffer_size);
 bool write_string_to_file(FILE *fp, const char *string);
 
 int main(int argc, char *argv[])
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     FILE *input_fp  = NULL;
     FILE *output_fp = NULL;
 
-    char   input_string_buffer[INPUT_STRING_BUFFER_SIZE]   = {0};
+    char   string_buffer[INPUT_STRING_BUFFER_SIZE]         = {0};
     char   output_string_buffer[OUTPUT_STRING_BUFFER_SIZE] = {0};
     size_t input_string_length                             = 0;
     char   last_letter                                     = '\0';
@@ -67,14 +67,14 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    if (!read_line_from_file(input_fp, input_string_buffer, sizeof(input_string_buffer),
+    if (!read_line_from_file(input_fp, string_buffer, sizeof(string_buffer),
                              MAX_INPUT_STRING_LENGTH))
     {
         (void)fputs(R_ERR_MSG "\n", stderr);
         goto cleanup;
     }
 
-    input_string_length = strlen(input_string_buffer);
+    input_string_length = strlen(string_buffer);
 
     if (input_string_length == 0)
     {
@@ -82,9 +82,9 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    last_letter = input_string_buffer[input_string_length - 1];
+    last_letter = string_buffer[input_string_length - 1];
 
-    if (!get_letter_indexes_str(input_string_buffer, last_letter, output_string_buffer,
+    if (!get_letter_indexes_str(string_buffer, last_letter, output_string_buffer,
                                 sizeof(output_string_buffer)))
     {
         (void)fputs(PROC_ERR_MSG "\n", stderr);
@@ -152,32 +152,32 @@ bool close_file(FILE **fp)
     return close_result != EOF;
 }
 
-bool read_line_from_file(FILE *fp, char *input_string_buffer, size_t string_buffer_size,
+bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_size,
                          size_t max_string_length)
 {
-    if (fp == NULL || input_string_buffer == NULL || string_buffer_size < 2 ||
+    if (fp == NULL || string_buffer == NULL || string_buffer_size < 2 ||
         string_buffer_size > (size_t)INT_MAX || max_string_length > string_buffer_size - 2)
     {
         return false;
     }
 
-    if (fgets(input_string_buffer, (int)string_buffer_size, fp) == NULL)
+    if (fgets(string_buffer, (int)string_buffer_size, fp) == NULL)
     {
         return false;
     }
 
-    char *end_line = strpbrk(input_string_buffer, "\r\n");
+    char *end_line = strpbrk(string_buffer, "\r\n");
 
     size_t input_string_length;
 
     if (end_line != NULL)
     {
         *end_line           = '\0';
-        input_string_length = (size_t)(end_line - input_string_buffer);
+        input_string_length = (size_t)(end_line - string_buffer);
     }
     else
     {
-        input_string_length = strlen(input_string_buffer);
+        input_string_length = strlen(string_buffer);
     }
 
     if (ferror(fp) || input_string_length > max_string_length)
@@ -188,18 +188,17 @@ bool read_line_from_file(FILE *fp, char *input_string_buffer, size_t string_buff
     return true;
 }
 
-bool get_letter_indexes_str(const char *input_string_buffer, char letter,
-                            char *result_string_buffer, size_t result_string_buffer_size)
+bool get_letter_indexes_str(const char *string_buffer, char letter, char *result_string_buffer,
+                            size_t result_string_buffer_size)
 {
-    if (input_string_buffer == NULL || result_string_buffer == NULL ||
-        result_string_buffer_size == 0)
+    if (string_buffer == NULL || result_string_buffer == NULL || result_string_buffer_size == 0)
     {
         return false;
     }
 
     result_string_buffer[0] = '\0';
 
-    size_t input_string_length = strlen(input_string_buffer);
+    size_t input_string_length = strlen(string_buffer);
 
     if (input_string_length == 0)
     {
@@ -210,7 +209,7 @@ bool get_letter_indexes_str(const char *input_string_buffer, char letter,
 
     for (size_t i = 0; i < input_string_length - 1; ++i)
     {
-        if (input_string_buffer[i] == letter)
+        if (string_buffer[i] == letter)
         {
             size_t available_size = result_string_buffer_size - result_string_length;
 
