@@ -27,7 +27,7 @@ b c
 
 #define MAX_WORD_LENGTH           100U
 #define WORD_BUFFER_SIZE          (MAX_WORD_LENGTH + 2U)
-#define MAX_OUTPUT_STRING_LENGTH  (MAX_WORD_LENGTH * 2U + MAX_WORD_LENGTH)
+#define MAX_OUTPUT_STRING_LENGTH  (MAX_WORD_LENGTH + MAX_WORD_LENGTH - 1U)
 #define OUTPUT_STRING_BUFFER_SIZE (MAX_OUTPUT_STRING_LENGTH + 1U)
 
 #define OPN_ERR_MSG      "File opening failed"
@@ -55,12 +55,13 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    // const char *input_fname  = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G4\\input.txt";
-    const char *input_fname = "input.txt";
-    const char *input_mode  = "r";
-    // const char *output_fname = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G4\\output.txt";
-    const char *output_fname = "output.txt";
-    const char *output_mode  = "w";
+    const char *input_fname = "C:\\Data\\Dev\\projects\\C\\c_language_basics\\hw_10\\G4\\input.txt";
+    // const char *input_fname = "input.txt";
+    const char *input_mode = "r";
+    const char *output_fname =
+        "C:\\Data\\Dev\\projects\\C\\c_language_basics\\hw_10\\G4\\output.txt";
+    // const char *output_fname = "output.txt";
+    const char *output_mode = "w";
 
     int result = EXIT_FAILURE;
 
@@ -85,9 +86,6 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    // printf("Word 1: %s\n", word1_buffer);
-    // printf("Word 2: %s\n", word2_buffer);
-
     if (!vacuum_string(word1_buffer, sizeof(word1_buffer)))
     {
         (void)fputs(PROC_ERR_MSG "\n", stderr);
@@ -99,9 +97,6 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    // printf("Vacuumed Word 1: %s\n", word1_buffer);
-    // printf("Vacuumed Word 2: %s\n", word2_buffer);
-
     if (!get_matching_chars(word1_buffer, word2_buffer, matching_chars_buffer,
                             sizeof(matching_chars_buffer)))
     {
@@ -109,16 +104,12 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    // printf("Matching chars: %s\n", matching_chars_buffer);
-
     if (!matching_chars_to_string(matching_chars_buffer, output_string_buffer,
                                   sizeof(output_string_buffer)))
     {
         (void)fputs(PROC_ERR_MSG "\n", stderr);
         goto cleanup;
     }
-
-    // printf("Output string: %s\n", output_string_buffer);
 
     if (!open_file(&output_fp, output_mode, output_fname))
     {
@@ -185,8 +176,8 @@ bool read_two_words_from_file(FILE *fp, char *word1_buffer, size_t word1_buffer_
                               char *word2_buffer, size_t word2_buffer_size, size_t max_word_length)
 {
     if (fp == NULL || word1_buffer == NULL || word2_buffer == NULL || word1_buffer_size < 2 ||
-        word2_buffer_size < 2 || max_word_length > word1_buffer_size - 1 ||
-        max_word_length > word2_buffer_size - 1)
+        word2_buffer_size < 2 || max_word_length > word1_buffer_size - 2 ||
+        max_word_length > word2_buffer_size - 2)
     {
         return false;
     }
@@ -194,7 +185,7 @@ bool read_two_words_from_file(FILE *fp, char *word1_buffer, size_t word1_buffer_
     char format[]           = "%XXXs %XXXs";
     char max_word_len_str[] = "XXX";
     int  snprintf_result =
-        snprintf(max_word_len_str, sizeof(max_word_len_str), "%zu", max_word_length);
+        snprintf(max_word_len_str, sizeof(max_word_len_str), "%zu", max_word_length + 1);
 
     if (snprintf_result < 0 || snprintf_result >= (int)sizeof(max_word_len_str))
     {
@@ -239,15 +230,10 @@ bool write_string_to_file(FILE *fp, const char *string)
 int compare_chars(const void *a, const void *b)
 {
 
-    if (a == NULL || b == NULL)
-    {
-        return 0;
-    }
+    const unsigned char char_a = *(const unsigned char *)a;
+    const unsigned char char_b = *(const unsigned char *)b;
 
-    const char *char_a = (const char *)a;
-    const char *char_b = (const char *)b;
-
-    return (*char_a - *char_b);
+    return (int)char_a - (int)char_b;
 }
 
 bool vacuum_string(char *string_buffer, size_t string_buffer_size)
@@ -257,40 +243,50 @@ bool vacuum_string(char *string_buffer, size_t string_buffer_size)
         return false;
     }
 
-    size_t input_string_length = strlen(string_buffer);
+    size_t string_length = 0;
 
-    qsort(string_buffer, input_string_length, sizeof(char), compare_chars);
+    while (string_length < string_buffer_size && string_buffer[string_length] != '\0')
+    {
+        ++string_length;
+    }
 
-    for (size_t i = 0; i < input_string_length; ++i)
+    if (string_length == string_buffer_size)
+    {
+        return false;
+    }
+
+    qsort(string_buffer, string_length, sizeof(char), compare_chars);
+
+    size_t i = 0;
+
+    while (i < string_length)
     {
         if (string_buffer[i] == ' ')
         {
+            ++i;
             continue;
         }
 
         size_t j = i + 1;
 
-        while (j < input_string_length && string_buffer[j] == string_buffer[i])
+        while (j < string_length && string_buffer[j] == string_buffer[i])
         {
             ++j;
         }
 
-        if (j - i == 1)
-        {
-            // Уникальный символ, оставляем его на месте
-            continue;
-        }
-        else
+        if (j - i > 1)
         {
             // Повтояющийся символ, удаляем его из строки, сдвигая оставшуюся часть строки вместе с
             // '\0' влево
-            memmove(&string_buffer[i], &string_buffer[j], input_string_length - j + 1);
+            memmove(&string_buffer[i], &string_buffer[j], string_length - j + 1);
             // Обновляем длину строки после удаления повторяющихся символов
-            input_string_length -= (j - i);
-            // Востанавливаем индекс, чтобы проверить текущий символ снова, так как он был заменен
-            // новым символом
-            --i;
+            string_length -= (j - i);
+            // Не увеличиваем i, на текущую позицию переместилась новая группа символов, которую
+            // нужно проверить на уникальность
+            continue;
         }
+        // Увеличиваем i только если текущий символ уникален и не был удален
+        ++i;
     }
 
     return true;
@@ -305,7 +301,11 @@ bool get_matching_chars(const char *word1_buffer, const char *word2_buffer,
         return false;
     }
 
-    for (size_t i = 0; i < strlen(word1_buffer); ++i)
+    matching_chars_buffer[0] = '\0';
+
+    size_t word1_length = strlen(word1_buffer);
+
+    for (size_t i = 0; i < word1_length; ++i)
     {
         char current_char = word1_buffer[i];
 
@@ -313,7 +313,7 @@ bool get_matching_chars(const char *word1_buffer, const char *word2_buffer,
         {
             size_t current_length = strlen(matching_chars_buffer);
 
-            if (current_length + 2 > matching_chars_buffer_size)
+            if (current_length >= matching_chars_buffer_size - 1)
             {
                 return false;
             }
@@ -329,7 +329,7 @@ bool get_matching_chars(const char *word1_buffer, const char *word2_buffer,
 bool matching_chars_to_string(const char *matching_chars_buffer, char *string_buffer,
                               size_t string_buffer_size)
 {
-    if (matching_chars_buffer == NULL || string_buffer == NULL || string_buffer_size < 2)
+    if (matching_chars_buffer == NULL || string_buffer == NULL || string_buffer_size == 0)
     {
         return false;
     }
