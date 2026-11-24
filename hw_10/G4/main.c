@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -30,11 +31,11 @@ b c
 #define MAX_OUTPUT_STRING_LENGTH  (MAX_WORD_LENGTH + MAX_WORD_LENGTH - 1U)
 #define OUTPUT_STRING_BUFFER_SIZE (MAX_OUTPUT_STRING_LENGTH + 1U)
 
-#define OPN_ERR_MSG      "File opening failed"
-#define CLS_ERR_MSG      "File closing failed"
-#define R_ERR_MSG        "File reading failed"
-#define W_ERR_MSG        "File writing failed"
-#define INV_DATA_ERR_MSG "Invalid data"
+#define OPN_ERR_MSG "File opening failed"
+#define CLS_ERR_MSG "File closing failed"
+#define R_ERR_MSG   "File reading failed"
+#define W_ERR_MSG   "File writing failed"
+// #define INV_DATA_ERR_MSG "Invalid data"
 // #define MEM_ALLOC_ERR_MSG "Memory allocating failed"
 #define PROC_ERR_MSG "Processing error"
 
@@ -55,13 +56,10 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    const char *input_fname = "C:\\Data\\Dev\\projects\\C\\c_language_basics\\hw_10\\G4\\input.txt";
-    // const char *input_fname = "input.txt";
-    const char *input_mode = "r";
-    const char *output_fname =
-        "C:\\Data\\Dev\\projects\\C\\c_language_basics\\hw_10\\G4\\output.txt";
-    // const char *output_fname = "output.txt";
-    const char *output_mode = "w";
+    const char *input_fname  = "input.txt";
+    const char *input_mode   = "r";
+    const char *output_fname = "output.txt";
+    const char *output_mode  = "w";
 
     int result = EXIT_FAILURE;
 
@@ -182,19 +180,22 @@ bool read_two_words_from_file(FILE *fp, char *word1_buffer, size_t word1_buffer_
         return false;
     }
 
-    char format[]           = "%XXXs %XXXs";
-    char max_word_len_str[] = "XXX";
-    int  snprintf_result =
+    // [(upper bound for the number of decimal digits in size_t) + '\0']
+    char max_word_len_str[sizeof(size_t) * CHAR_BIT + 1U] = {0};
+    // [2 * ((upper bound for the number of decimal digits in size_t) + '%' + 's') + ' ' + '\0']
+    char format[2U * (sizeof(size_t) * CHAR_BIT + 2U) + 2U];
+
+    int snprintf_result =
         snprintf(max_word_len_str, sizeof(max_word_len_str), "%zu", max_word_length + 1);
 
-    if (snprintf_result < 0 || snprintf_result >= (int)sizeof(max_word_len_str))
+    if (snprintf_result < 0 || (size_t)snprintf_result >= sizeof(max_word_len_str))
     {
         return false;
     }
 
     snprintf_result =
         snprintf(format, sizeof(format), "%%%ss %%%ss", max_word_len_str, max_word_len_str);
-    if (snprintf_result < 0 || snprintf_result >= (int)sizeof(format))
+    if (snprintf_result < 0 || (size_t)snprintf_result >= sizeof(format))
     {
         return false;
     }
@@ -255,18 +256,12 @@ bool vacuum_string(char *string_buffer, size_t string_buffer_size)
         return false;
     }
 
-    qsort(string_buffer, string_length, sizeof(char), compare_chars);
+    qsort(string_buffer, string_length, sizeof(*string_buffer), compare_chars);
 
     size_t i = 0;
 
     while (i < string_length)
     {
-        if (string_buffer[i] == ' ')
-        {
-            ++i;
-            continue;
-        }
-
         size_t j = i + 1;
 
         while (j < string_length && string_buffer[j] == string_buffer[i])
@@ -305,21 +300,21 @@ bool get_matching_chars(const char *word1_buffer, const char *word2_buffer,
 
     size_t word1_length = strlen(word1_buffer);
 
+    size_t matching_chars_length = 0;
+
     for (size_t i = 0; i < word1_length; ++i)
     {
         char current_char = word1_buffer[i];
 
         if (strchr(word2_buffer, current_char) != NULL)
         {
-            size_t current_length = strlen(matching_chars_buffer);
-
-            if (current_length >= matching_chars_buffer_size - 1)
+            if (matching_chars_length >= matching_chars_buffer_size - 1)
             {
                 return false;
             }
 
-            matching_chars_buffer[current_length]     = current_char;
-            matching_chars_buffer[current_length + 1] = '\0';
+            matching_chars_buffer[matching_chars_length++] = current_char;
+            matching_chars_buffer[matching_chars_length]   = '\0';
         }
     }
 
@@ -337,19 +332,21 @@ bool matching_chars_to_string(const char *matching_chars_buffer, char *string_bu
     string_buffer[0] = '\0';
 
     size_t matching_chars_length = strlen(matching_chars_buffer);
+    size_t output_length         = 0;
 
     for (size_t i = 0; i < matching_chars_length; ++i)
     {
-        size_t available_size = string_buffer_size - strlen(string_buffer);
+        size_t available_size = string_buffer_size - output_length;
 
-        int snprintf_result =
-            snprintf(string_buffer + strlen(string_buffer), available_size, "%s%c",
-                     strlen(string_buffer) == 0 ? "" : " ", matching_chars_buffer[i]);
+        int snprintf_result = snprintf(string_buffer + output_length, available_size, "%s%c",
+                                       output_length == 0 ? "" : " ", matching_chars_buffer[i]);
 
         if (snprintf_result < 0 || (size_t)snprintf_result >= available_size)
         {
             return false;
         }
+
+        output_length += (size_t)snprintf_result;
     }
 
     return true;
