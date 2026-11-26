@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -26,6 +27,7 @@ Output in output.txt
 #define MAX_INPUT_STRING_LENGTH  1000U
 #define INPUT_STRING_BUFFER_SIZE (MAX_INPUT_STRING_LENGTH + 2U)
 #define MAX_COUNT_NUMBERS        (MAX_INPUT_STRING_LENGTH / 2U + MAX_INPUT_STRING_LENGTH % 2U)
+#define DEC_RADIX                10
 // #define MAX_OUTPUT_STRING_LENGTH  (2U * MAX_COUNT_DECIMAL_DIGITS + 1U)
 // #define OUTPUT_STRING_BUFFER_SIZE (MAX_OUTPUT_STRING_LENGTH + 1U)
 
@@ -41,25 +43,32 @@ bool open_file(FILE **fp, const char *mode, const char *fname);
 bool close_file(FILE **fp);
 bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_size,
                          size_t max_string_length);
-bool write_string_to_file(FILE *fp, const char *string);
+bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_size,
+                               const char *join_by);
+bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
+                             size_t max_count_numbers);
+int  compare_longs(const void *a, const void *b);
 
 int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
 
-    const char *input_fname  = "input.txt";
+    const char *input_fname = "input.txt";
+    // const char *input_fname = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G8\\input.txt";
     const char *input_mode   = "r";
     const char *output_fname = "output.txt";
-    const char *output_mode  = "w";
+    // const char *output_fname = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G8\\output.txt";
+    const char *output_mode = "w";
 
     int result = EXIT_FAILURE;
 
     FILE *input_fp  = NULL;
     FILE *output_fp = NULL;
 
-    char input_string_buffer[INPUT_STRING_BUFFER_SIZE] = {0};
-    // char output_string_buffer[OUTPUT_STRING_BUFFER_SIZE] = {0};
+    char   input_string_buffer[INPUT_STRING_BUFFER_SIZE] = {0};
+    long   numbers[MAX_COUNT_NUMBERS]                    = {0};
+    size_t count_numbers                                 = 0;
 
     if (!open_file(&input_fp, input_mode, input_fname))
     {
@@ -74,15 +83,24 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
+    if (!get_numbers_from_string(input_string_buffer, numbers, &count_numbers,
+                                 sizeof numbers / sizeof *numbers))
+    {
+        (void)fputs(PROC_ERR_MSG "\n", stderr);
+        goto cleanup;
+    }
+
+    qsort(numbers, count_numbers, sizeof *numbers, compare_longs);
+
     if (!open_file(&output_fp, output_mode, output_fname))
     {
         perror(OPN_ERR_MSG);
         goto cleanup;
     }
 
-    if (!write_string_to_file(output_fp, output_string_buffer))
+    if (!write_longs_array_to_file(output_fp, numbers, count_numbers, " "))
     {
-        perror(W_ERR_MSG);
+        (void)fputs(W_ERR_MSG "\n", stderr);
         goto cleanup;
     }
 
@@ -171,51 +189,87 @@ bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_siz
     return true;
 }
 
-bool write_string_to_file(FILE *fp, const char *string)
+bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_size,
+                               const char *join_by)
 {
-    if (fp == NULL || string == NULL)
+    if (fp == NULL || array == NULL)
     {
         return false;
     }
 
-    if (fputs(string, fp) == EOF)
+    if (join_by == NULL)
     {
-        return false;
+        join_by = "";
     }
 
-    return true;
-}
+    int written = 0;
 
-bool string_count_if(const char *string, count_if_t *count_if, size_t count_if_size)
-{
-    if (string == NULL || count_if == NULL || count_if_size == 0)
+    for (size_t i = 0; i < array_size; ++i)
     {
-        return false;
-    }
-
-    for (size_t i = 0; i < count_if_size; ++i)
-    {
-        if (count_if[i].predicate == NULL)
+        if (fputs(written == 0 ? "" : join_by, fp) == EOF)
+        {
+            return false;
+        }
+        if ((written = fprintf(fp, "%ld", array[i])) < 0)
         {
             return false;
         }
     }
 
-    for (size_t i = 0; i < count_if_size; ++i)
+    return true;
+}
+
+bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
+                             size_t max_count_numbers)
+{
+    if (string == NULL || numbers == NULL || count_numbers == NULL || max_count_numbers == 0)
     {
-        count_if[i].count = 0;
+        return false;
     }
 
-    for (const unsigned char *ptr = (const unsigned char *)string; *ptr != '\0'; ++ptr)
+    if (strlen(string) == 0)
     {
-        for (size_t i = 0; i < count_if_size; ++i)
+        return false;
+    }
+
+    const char *digits       = "-0123456789";
+    const char *start_number = string;
+
+    while ((start_number = strpbrk(start_number, digits)) != NULL)
+    {
+
+        errno = 0;
+        char *end;
+        long  number = strtol(start_number, &end, DEC_RADIX);
+
+        if (errno == ERANGE && (number == LONG_MAX || number == LONG_MIN))
         {
-            if (count_if[i].predicate(*ptr))
-            {
-                ++count_if[i].count;
-            }
+            return false;
         }
+
+        start_number = end;
+
+        if (++*count_numbers > max_count_numbers)
+        {
+            return false;
+        }
+
+        *numbers++ = number;
+        // printf("%ld\n", number);
     }
 
     return true;
+}
+
+int compare_longs(const void *a, const void *b)
+{
+    if (a == NULL || b == NULL)
+    {
+        return 0;
+    }
+
+    const long *a_ptr = (const long *)a;
+    const long *b_ptr = (const long *)b;
+
+    return (*a_ptr - *b_ptr);
 }
