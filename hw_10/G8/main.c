@@ -43,8 +43,7 @@ bool open_file(FILE **fp, const char *mode, const char *fname);
 bool close_file(FILE **fp);
 bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_size,
                          size_t max_string_length);
-bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_size,
-                               const char *join_by);
+bool write_longs_array_to_file(FILE *fp, const long *array, size_t array_size, const char *join_by);
 bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
                              size_t max_count_numbers);
 int  compare_longs(const void *a, const void *b);
@@ -54,12 +53,10 @@ int main(int argc, char *argv[])
     (void)argc;
     (void)argv;
 
-    const char *input_fname = "input.txt";
-    // const char *input_fname = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G8\\input.txt";
+    const char *input_fname  = "input.txt";
     const char *input_mode   = "r";
     const char *output_fname = "output.txt";
-    // const char *output_fname = "C:\\Data\\Projects\\C\\c_language_basics\\hw_10\\G8\\output.txt";
-    const char *output_mode = "w";
+    const char *output_mode  = "w";
 
     int result = EXIT_FAILURE;
 
@@ -189,10 +186,9 @@ bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_siz
     return true;
 }
 
-bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_size,
-                               const char *join_by)
+bool write_longs_array_to_file(FILE *fp, const long *array, size_t array_size, const char *join_by)
 {
-    if (fp == NULL || array == NULL)
+    if (fp == NULL || (array_size > 0 && array == NULL))
     {
         return false;
     }
@@ -202,15 +198,14 @@ bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_s
         join_by = "";
     }
 
-    int written = 0;
-
     for (size_t i = 0; i < array_size; ++i)
     {
-        if (fputs(written == 0 ? "" : join_by, fp) == EOF)
+        if (i > 0 && fputs(join_by, fp) == EOF)
         {
             return false;
         }
-        if ((written = fprintf(fp, "%ld", array[i])) < 0)
+
+        if (fprintf(fp, "%ld", array[i]) < 0)
         {
             return false;
         }
@@ -222,40 +217,42 @@ bool write_longs_array_to_file(FILE *fp, const long *const array, size_t array_s
 bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
                              size_t max_count_numbers)
 {
-    if (string == NULL || numbers == NULL || count_numbers == NULL || max_count_numbers == 0)
+    if (string == NULL || numbers == NULL || count_numbers == NULL)
     {
         return false;
     }
 
-    if (strlen(string) == 0)
-    {
-        return false;
-    }
+    const char *number_start_chars = "-0123456789";
+    const char *start_number       = string;
+    *count_numbers                 = 0;
 
-    const char *digits       = "-0123456789";
-    const char *start_number = string;
-
-    while ((start_number = strpbrk(start_number, digits)) != NULL)
+    while ((start_number = strpbrk(start_number, number_start_chars)) != NULL)
     {
 
-        errno = 0;
-        char *end;
+        errno        = 0;
+        char *end    = NULL;
         long  number = strtol(start_number, &end, DEC_RADIX);
 
-        if (errno == ERANGE && (number == LONG_MAX || number == LONG_MIN))
+        if (end == start_number)
+        {
+            ++start_number;
+            continue;
+        }
+
+        if (errno == ERANGE)
         {
             return false;
         }
+
+        if (*count_numbers >= max_count_numbers)
+        {
+            return false;
+        }
+
+        numbers[*count_numbers] = number;
+        ++*count_numbers;
 
         start_number = end;
-
-        if (++*count_numbers > max_count_numbers)
-        {
-            return false;
-        }
-
-        *numbers++ = number;
-        // printf("%ld\n", number);
     }
 
     return true;
@@ -263,13 +260,8 @@ bool get_numbers_from_string(const char *string, long *numbers, size_t *count_nu
 
 int compare_longs(const void *a, const void *b)
 {
-    if (a == NULL || b == NULL)
-    {
-        return 0;
-    }
+    const long a_value = *(const long *)a;
+    const long b_value = *(const long *)b;
 
-    const long *a_ptr = (const long *)a;
-    const long *b_ptr = (const long *)b;
-
-    return (*a_ptr - *b_ptr);
+    return (a_value > b_value) - (a_value < b_value);
 }
