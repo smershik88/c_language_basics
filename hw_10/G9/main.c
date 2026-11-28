@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -24,10 +23,7 @@ abcdef
 
 #define MAX_INPUT_STRING_LENGTH  1000U
 #define INPUT_STRING_BUFFER_SIZE (MAX_INPUT_STRING_LENGTH + 2U)
-#define MAX_COUNT_NUMBERS        (MAX_INPUT_STRING_LENGTH / 2U + MAX_INPUT_STRING_LENGTH % 2U)
-#define DEC_RADIX                10
-// #define MAX_OUTPUT_STRING_LENGTH  (2U * MAX_COUNT_DECIMAL_DIGITS + 1U)
-// #define OUTPUT_STRING_BUFFER_SIZE (MAX_OUTPUT_STRING_LENGTH + 1U)
+#define CHAR_VALUES_COUNT        ((size_t)UCHAR_MAX + 1U)
 
 #define OPN_ERR_MSG  "File opening failed"
 #define CLS_ERR_MSG  "File closing failed"
@@ -41,10 +37,8 @@ bool open_file(FILE **fp, const char *mode, const char *fname);
 bool close_file(FILE **fp);
 bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_size,
                          size_t max_string_length);
-bool write_longs_array_to_file(FILE *fp, const long *array, size_t array_size, const char *join_by);
-bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
-                             size_t max_count_numbers);
-int  compare_longs(const void *a, const void *b);
+bool write_string_to_file(FILE *fp, const char *string);
+void remove_spaces_and_duplicates(char *string);
 
 int main(int argc, char *argv[])
 {
@@ -61,9 +55,7 @@ int main(int argc, char *argv[])
     FILE *input_fp  = NULL;
     FILE *output_fp = NULL;
 
-    char   input_string_buffer[INPUT_STRING_BUFFER_SIZE] = {0};
-    long   numbers[MAX_COUNT_NUMBERS]                    = {0};
-    size_t count_numbers                                 = 0;
+    char input_string_buffer[INPUT_STRING_BUFFER_SIZE] = {0};
 
     if (!open_file(&input_fp, input_mode, input_fname))
     {
@@ -78,14 +70,7 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    if (!get_numbers_from_string(input_string_buffer, numbers, &count_numbers,
-                                 sizeof numbers / sizeof *numbers))
-    {
-        (void)fputs(PROC_ERR_MSG "\n", stderr);
-        goto cleanup;
-    }
-
-    qsort(numbers, count_numbers, sizeof *numbers, compare_longs);
+    remove_spaces_and_duplicates(input_string_buffer);
 
     if (!open_file(&output_fp, output_mode, output_fname))
     {
@@ -93,9 +78,9 @@ int main(int argc, char *argv[])
         goto cleanup;
     }
 
-    if (!write_longs_array_to_file(output_fp, numbers, count_numbers, " "))
+    if (!write_string_to_file(output_fp, input_string_buffer))
     {
-        (void)fputs(W_ERR_MSG "\n", stderr);
+        perror(W_ERR_MSG);
         goto cleanup;
     }
 
@@ -184,82 +169,55 @@ bool read_line_from_file(FILE *fp, char *string_buffer, size_t string_buffer_siz
     return true;
 }
 
-bool write_longs_array_to_file(FILE *fp, const long *array, size_t array_size, const char *join_by)
+bool write_string_to_file(FILE *fp, const char *string)
 {
-    if (fp == NULL || (array_size > 0 && array == NULL))
+    if (fp == NULL || string == NULL)
     {
         return false;
     }
 
-    if (join_by == NULL)
+    if (fputs(string, fp) == EOF)
     {
-        join_by = "";
-    }
-
-    for (size_t i = 0; i < array_size; ++i)
-    {
-        if (i > 0 && fputs(join_by, fp) == EOF)
-        {
-            return false;
-        }
-
-        if (fprintf(fp, "%ld", array[i]) < 0)
-        {
-            return false;
-        }
+        return false;
     }
 
     return true;
 }
 
-bool get_numbers_from_string(const char *string, long *numbers, size_t *count_numbers,
-                             size_t max_count_numbers)
+void remove_spaces_and_duplicates(char *string)
 {
-    if (string == NULL || numbers == NULL || count_numbers == NULL)
+    if (string == NULL)
     {
-        return false;
+        return;
     }
 
-    const char *number_start_chars = "-0123456789";
-    const char *start_number       = string;
-    *count_numbers                 = 0;
+    bool chars_seen[CHAR_VALUES_COUNT] = {false};
 
-    while ((start_number = strpbrk(start_number, number_start_chars)) != NULL)
+    size_t read_index  = 0;
+    size_t write_index = 0;
+
+    while (string[read_index] != '\0')
     {
+        unsigned char current_char = (unsigned char)string[read_index++];
 
-        errno        = 0;
-        char *end    = NULL;
-        long  number = strtol(start_number, &end, DEC_RADIX);
-
-        if (end == start_number)
+        // Пропускаем пробелы.
+        if (current_char == ' ')
         {
-            ++start_number;
             continue;
         }
 
-        if (errno == ERANGE)
+        // Пропускаем уже встречавшиеся символы.
+        if (chars_seen[current_char])
         {
-            return false;
+            continue;
         }
 
-        if (*count_numbers >= max_count_numbers)
-        {
-            return false;
-        }
+        chars_seen[current_char] = true;
 
-        numbers[*count_numbers] = number;
-        ++*count_numbers;
-
-        start_number = end;
+        // Сохраняем первое вхождение символа.
+        string[write_index++] = (char)current_char;
     }
 
-    return true;
-}
-
-int compare_longs(const void *a, const void *b)
-{
-    const long a_value = *(const long *)a;
-    const long b_value = *(const long *)b;
-
-    return (a_value > b_value) - (a_value < b_value);
+    // Завершаем результирующую строку.
+    string[write_index] = '\0';
 }
